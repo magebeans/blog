@@ -1,0 +1,27 @@
+# Dependencies
+markdown:         redcarpet
+highlighter:      pygments
+
+# Permalinks
+permalink:        pretty
+relative_permalinks: true
+
+# Setup
+title:            Manas George
+tagline:          ''
+description:      'This site is a poor, faint reflection of who I am. As time goes by and I get better at writing, it will become a clearer, better reflection of me.'
+url:              http://www.prism.gatech.edu/~mgeorge42/
+baseurl:          /
+
+author:
+  name:           'Manas George'
+  url:            http://www.prism.gatech.edu/~mgeorge42/
+
+paginate:         5
+paginate_path:    "blog/page:num"
+
+# Custom vars
+version:          1.0.0
+
+github:
+  repo:           https://github.com/ManasGeorge
