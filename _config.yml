@@ -11,7 +11,7 @@ title:            Manas George
 tagline:          ''
 description:      'This site is a poor, faint reflection of who I am. As time goes by and I get better at writing, it will become a clearer, better reflection of me.'
 url:              http://www.prism.gatech.edu/~mgeorge42/
-baseurl:          /
+baseurl:          ''
 
 author:
   name:           'Manas George'
