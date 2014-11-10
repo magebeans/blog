@@ -1,6 +1,6 @@
 <div class="sidebar">
-  <div class="container sidebar-sticky">
-    <div class="sidebar-about">
+ <div class="container sidebar-sticky">
+   <div class="sidebar-about">
       <h1>
         <a href="{{ site.baseurl }}">
           {{ site.title }}
@@ -27,7 +27,7 @@
       {% endfor %}
 
       <a class="sidebar-nav-item" href="https://www.github.com/ManasGeorge">GitHub</a>
-      <a class="sidebar-nav-item" href="{{ site.baseurl | append:'/blog' }}">Blog</a>
+      <a class="sidebar-nav-item{% if page.url == node.url %} active{% endif %}" href="{{ site.baseurl | append:'/blog' }}">Blog</a>
     </nav>
   </div>
 </div>
