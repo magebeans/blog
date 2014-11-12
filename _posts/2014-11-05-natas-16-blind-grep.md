@@ -1,3 +1,7 @@
+---
+layout: post
+---
+
 Natas 16
 ========
 
@@ -47,7 +51,7 @@ case, the command within $() returns the password, which is prepended to the
 string test. The server then greps the string $password+test against the
 dictionary. Now, the password is usually something like WaIHEacj63wnNIBROHeqi3p9t0m5nhmh,
 which means that the server greps something like WaIHEacj63wnNIBROHeqi3p9t0m5nhmhtest
-against the dictionary, which returns a page conatining nothing.
+against the dictionary, which returns a page containing nothing.
 
 In short, we can guess the first character of the password in this manner, checking
 to see if the result page is empty of not - it will be empty if the character we
