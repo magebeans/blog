@@ -4,7 +4,6 @@ layout: post
 
 Fractals
 --------
-
 Fractals are incredibly cool. You know you're in for a treat when fractional
 dimensions are a (meaningful) thing and things like shapes that enclose a
 finite area with an infinite perimeter actually exist. A lot of fractals are
@@ -13,7 +12,6 @@ basically about pretty pictures.
 
 Hilbert Curves
 --------------
-
 The particular fractal I've been playing with was first described by David Hilbert,
 an illustrious man whose name prepends a veritable litany of mathematical concepts.
 The curve itself is a continuous fractal space-filling curve - it has no breaks,
@@ -32,7 +30,6 @@ of such pairs, which is nice.
 
 RGB Space
 ---------
-
 How do we represent color? As a 3-tuple of values indicating the intensity of
 each of the primary colors - red, green, and blue. The color of each pixel in
 an image is determined by the relative values of the red, green, and blue in it -
@@ -45,7 +42,6 @@ You get the idea.
 
 Vanilla RGB
 -----------
-
 Now, I'd like to create an image with every single RGB color ever. This is nothing
 new - tens of hundreds of people have done it before in ways ranging from 
 utterly fantastically creative to tear-inducingly boring, and I'm only doing
@@ -69,7 +65,6 @@ and green, respectively.
 
 Curving through space
 ---------------------
-
 You're probably wondering what that whole spiel about fractals and Hilbert curves
 at the beginning of the post was about, if all I'm going to be doing is talk
 about colorspaces and pictures. Here's where it becomes important. In the
@@ -91,7 +86,6 @@ to points along this curve. Here are the resulting pictures:
 
 3: The final dimension
 ----------------------
-
 Now that you've seen the prettifying power of Hilbert curves, it is time to use
 Hilbert curves one last time to make the ultimate in color visualization techniques.
 Recall the original "nice" property of Hilbert curves - locality. We'd like to
@@ -113,7 +107,6 @@ Now THAT is pretty pretty.
 
 More
 ----
-
 The [Wikipedia](http://en.wikipedia.org/wiki/Hilbert_curve) page is a pretty good reference
 for general information about Hilbert curves.
 
