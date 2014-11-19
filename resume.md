@@ -55,28 +55,28 @@ Skills
     </tr>
     <tr>
         <th rowspan="4"> Languages: </th>
-        <td>C++ (proficient)</td>
-        <td>Python (proficient)</td>
-        <td>SQL (proficient)</td>
-        <td>Java (basic)</td>
+        <td>C++ (fluent)</td>
+        <td>Python (fluent)</td>
+        <td>SQL (fluent)</td>
+        <td>Java (fluent)</td>
     </tr>
     <tr>
-        <td>HTML (basic)</td>
-        <td>Javascript (basic)</td>
-        <td>CSS (basic)</td>
-        <td>LateX (basic)</td>
+        <td>HTML (conversational)</td>
+        <td>Javascript (conversational)</td>
+        <td>CSS (conversational)</td>
+        <td>LateX (conversational)</td>
     </tr>
     <tr>
-        <td>Assembly (basic)</td>
-        <td>Octave (basic)</td>
-        <td>Haskell (basic)</td>
-        <td>Bash (basic)</td>
+        <td>Assembly (conversational)</td>
+        <td>Octave (conversational)</td>
+        <td>Haskell (conversational)</td>
+        <td>Bash (conversational)</td>
     </tr>
     <tr>
-        <td>English (fluent)</td>
-        <td>Hindi (fluent)</td>
-        <td>Malayalam (fluent)</td>
-        <td>French (conversational)</td>
+        <td>English (proficient)</td>
+        <td>Hindi (proficient)</td>
+        <td>Malayalam (proficient)</td>
+        <td>French (intermediate)</td>
     </tr>
 </table>
 
@@ -84,11 +84,11 @@ Skills
 Activities
 ----------
 
++ Microsoft Coding Challenge (2014): First placed team
 + Carnegie Mellon [Algorithms With a Purpose](http://acmalgo.com/) AI contest (2014): Finalist team
 + McKesson Big Data Challenge (2014): Third placed team
-+ Microsoft Coding Challenge (2014): First placed team
 + Rube Goldberg Hackathon (2014): “Most Work For Least Utility” category winner
-+ [Google Code Jam](https://code.google.com/codejam) (2014): Passed qualification round, Code Jam
-+ [Indian National Olympiad in Informatics](http://www.iarcs.org.in/inoi/) (2013): Passed qualification round 
-+ Hungry Hungry Hackers [Capture the Flag](http://www.hungryhungryhackers.org/): Placed 11th
-+ Matasano/Square Microcontroller [Capture the Flag](https://microcorruption.com/login): Participant 
++ [Google Code Jam](https://code.google.com/codejam) (2014)
++ [Indian National Olympiad in Informatics](http://www.iarcs.org.in/inoi/) (2013)
++ Hungry Hungry Hackers [Capture the Flag](http://www.hungryhungryhackers.org/)
++ Matasano/Square Microcontroller [Capture the Flag](https://microcorruption.com/login)
