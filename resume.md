@@ -67,7 +67,7 @@ Skills
         <td>LateX (conversational)</td>
     </tr>
     <tr>
-        <td>Assembly (conversational)</td>
+        <td>Assembly (conversational in x86, x86_64, MSP430)</td>
         <td>Octave (conversational)</td>
         <td>Haskell (conversational)</td>
         <td>Bash (conversational)</td>
