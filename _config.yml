@@ -1,4 +1,5 @@
 # Dependencies
+plugins: [jekyll-paginate]
 markdown            : kramdown
 highlighter         : rouge
 
@@ -11,7 +12,7 @@ title       : Manas George
 tagline     : ''
 description : 'Hacker, Programmer, Math geek.'
 url         : http://www.prism.gatech.edu/~mgeorge42
-baseurl     : ''
+baseurl         :
 
 author:
 name                : 'Manas George'
@@ -19,6 +20,7 @@ url                 : http://www.prism.gatech.edu/~mgeorge42
 
 paginate            : 5
 paginate_path       : "blog/page:num"
+
 
 # Custom vars
 # version           : 1.0.0
