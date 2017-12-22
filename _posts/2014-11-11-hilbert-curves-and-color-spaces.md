@@ -21,7 +21,7 @@ Why is it useful? Locality. Take the 2 dimensional Hilbert curve, for instance. 
 that are nearby on the curve (measuring distance along the curve) will also be
 nearby in 2-D space. That is, for two points $$ A(x_1,y_1) $$ and $$ B(x_2,y_2) $$ that are
 distances $$ d_1 $$ and $$ d_2 $$ along the curve, respectively, if $$ d_2-d_1 $$ is a small number,
-the Euclidean distance between the points A,B - $$ \sqrt{(x_2-x_1)^2 + (y_2-y_1)^2} $$ will
+the Euclidean distance between the points A,B $$ \sqrt{(x_2-x_1)^2 + (y_2-y_1)^2} $$ will
 also be relatively small. Of course, the converse is not always true - there will
 always be points that are nearby in 2-D space that, when mapped onto the curve,
 are relatively far away. This is inevitable when mapping from a high-dimensional

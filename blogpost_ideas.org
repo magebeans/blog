@@ -1,9 +1,18 @@
 * Machine Learning
 ** TODO He and Xavier initialization 
-   - Go through the math, explain why initializing that way equalizes variances, preventing the explosing/vanishing gradients problem
-   - Paper link [[http://proceedings.mlr.press/v9/glorot10a/glorot10a.pdf][here]]
+*** DONE Math
+    CLOSED: [2017-12-22 Fri 08:29]
+    - Go through the math, explain why initializing that way equalizes variances, preventing the explosing/vanishing gradients problem
+    - Paper link [[http://proceedings.mlr.press/v9/glorot10a/glorot10a.pdf][here]]
+*** TODO Pictures
+    - Sigmoid graph with saturation highlighted
+    - Neural net diagram with notation marked
+*** TODO Code
+    - Write code to verify their results
+    - Produce the histogram of gradients across layers comparing initialization function for each choice of activation function
 ** TODO Batch Normalization
    - Intuition for why re-scaling the inputs works
+   - https://arxiv.org/pdf/1502.03167.pdf
 ** TODO Sparse Networks (FTRL)
    - Follow the regularized leader, also called Dual Averaging, as described in [[https://hal.archives-ouvertes.fr/hal-00508933/document][this]] mathematically hefty paper.
 ** TODO Dropout
