@@ -1,0 +1,30 @@
+* Machine Learning
+** TODO He and Xavier initialization 
+   - Go through the math, explain why initializing that way equalizes variances, preventing the explosing/vanishing gradients problem
+   - Paper link [[http://proceedings.mlr.press/v9/glorot10a/glorot10a.pdf][here]]
+** TODO Batch Normalization
+   - Intuition for why re-scaling the inputs works
+** TODO Sparse Networks (FTRL)
+   - Follow the regularized leader, also called Dual Averaging, as described in [[https://hal.archives-ouvertes.fr/hal-00508933/document][this]] mathematically hefty paper.
+** TODO Dropout
+   - Original Hinton [[https://arxiv.org/pdf/1207.0580.pdf][paper]] here, more detailed [[https://www.cs.toronto.edu/~hinton/absps/JMLRdropout.pdf][paper]] here.
+   - The basic idea is that it forces neurons to not be codependent.
+** TODO Bottleneck layer
+   - Show how adding a 1x1 window bottleneck layer effectively increases the complexity of features detected by the next conv layer
+   - Use that paper that visualized the features learned by each layer
+* OS
+** TODO Filesystem
+   - Pick a filesystem, go through internals
+   - Design decisions, data structures, how things fit together
+** Kernel
+*** TODO Linux scheduler evolution
+    - Versions, history, motivations for each version, how things change
+* Security
+** TODO RSA attacks
+   - Explain LLL, how it can be used for the Coppersmith Attack
+** TODO Side channel attacks
+   - Dearth of material on how to actually conduct one, theory, etc.
+** TODO Symbolic execution 
+   - What SAT is, how to solve it, small z3 tutorial
+   - Symbolic execution
+* CTF problems
