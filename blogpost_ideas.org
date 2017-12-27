@@ -21,6 +21,9 @@
 ** TODO Bottleneck layer
    - Show how adding a 1x1 window bottleneck layer effectively increases the complexity of features detected by the next conv layer
    - Use that paper that visualized the features learned by each layer
+** TODO Traffic sign recognition
+   - https://chsasank.github.io/keras-tutorial.html
+   - See if you can get accuracy up?
 * OS
 ** TODO Filesystem
    - Pick a filesystem, go through internals
@@ -29,11 +32,15 @@
 *** TODO Linux scheduler evolution
     - Versions, history, motivations for each version, how things change
 * Security
-** TODO RSA attacks
-   - Explain LLL, how it can be used for the Coppersmith Attack
 ** TODO Side channel attacks
    - Dearth of material on how to actually conduct one, theory, etc.
 ** TODO Symbolic execution 
    - What SAT is, how to solve it, small z3 tutorial
    - Symbolic execution
 * CTF problems
+* Math
+** TODO LLL
+*** TODO RSA attacks
+*** TODO Integer linear programming
+*** TODO Integral relations
+*** TODO MIMO

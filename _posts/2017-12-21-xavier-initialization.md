@@ -2,10 +2,15 @@
 layout: post
 ---
 
-## Vanishing Gradients
-Initially, one of the challenges preventing the efficient training of very deep neural networks was the phenomenon of extreme gradients. If you look at a plot of the sigmoidal activation function, a common choice in vanilla neural networks, it is clear that the derivative approaches zero at the extremes of the function; activations close to 1 or close to 0 both produce very small gradients. A neuron is said to be saturated when its activation occupies these extreme regimes. It was observed during the training of very deep networks that the last hidden layer would often quickly saturate to 0, causing the gradients to be close to 0 as well, which led to the backpropagated gradients in each preceding layer to become smaller and smaller still, until the very first hidden layers felt almost no change to their weights at all from the almost-zero gradients. This is clearly disastrous; the earlier hidden layers are supposed to be busy identifying features in the dataset that successive layers can then use to build more complex features at an even high level of abstraction. If the gradients reaching these early layers do not affect their weights, they end up learning nothing from the dataset, with predictable results on model accuracy.
+This post assumes that you know enough about neural networks to follow through some math involving the backpropagation equations. For the most part, I only do basic algebraic manipulations, with a small dusting of basic statistics thrown in. If you know nothing about neural nets and have an hour or so to spare, the excellent [Neural Networks and Deep Learning](http://neuralnetworksanddeeplearning.com/) is a good place to learn the basics, and getting as far as Chapter 2 should teach you enough to follow the math here. I try here to flesh out some of the math Glorot and Bengio skipped in their paper about initializing weights in deep neural networks, to better illuminate the intution behind why their method solves a longstanding problem facing the training of such networks.
 
-<!-- Insert annotated picture of the sigmoid and its derivative, highlighting saturation # -->
+## Vanishing Gradients
+Initially, one of the challenges preventing the efficient training of very deep neural networks was the phenomenon of extreme gradients. If you look at a plot of the sigmoid activation function, a common choice in vanilla neural networks, it is clear that the derivative approaches zero at the extremes of the function; activations close to 1 or close to 0 both produce very small gradients. A neuron is said to be saturated when its activation occupies these extreme regimes. It was observed during the training of very deep networks that the last hidden layer would often quickly saturate to 0, causing the gradients to be close to 0 as well, which led to the backpropagated gradients in each preceding layer to become smaller and smaller still, until the very first hidden layers felt almost no change to their weights at all from the almost-zero gradients. This is clearly disastrous; the earlier hidden layers are supposed to be busy identifying features in the dataset that successive layers can then use to build more complex features at an even high level of abstraction. If the gradients reaching these early layers do not affect their weights, they end up learning nothing from the dataset, with predictable results on model accuracy.
+
+![sigmoid](/assets/sigmoid.png)
+
+In this plot of the sigmoid activation function (the blue line), and its derivative (red line), you can clearly see the regions of saturation (light red background), where forcing the function to go to zero also forces its derivative to go to zero, causing the vanishing gradients issue as you move back through the layers.
+
 
 ## Glorot and Bengio
 Xavier Glorot and Yoshua Bengio examined the theoretical effects of weight initialization on the vanishing gradients problem in their 2010 paper[^1]. The first part of their paper compares activation functions, explaining how certain peculiarities of the commonly-used sigmoid function make it highly susceptible to the problem of saturation, and showing that the hyperbolic tangent and softsign $$\left( \frac{x}{1 + |x|} \right)$$ activations perform better in this respect.
@@ -13,7 +18,7 @@ Xavier Glorot and Yoshua Bengio examined the theoretical effects of weight initi
 The second part of their paper considers the problem of initializing weights in a fully connected network, providing theoretical justification for sampling the initial weights from the uniform distribution of a certain variance. The motivating intuition for this is in two parts; for the forward pass, ensuring that the variance of the activations is approximately the same across all the layers of the network allows for information from each training instance to pass through the network smoothly. Similarly, considering the backward pass, relatively similar variances of the gradients allows information to flow smoothly backwards. This ensures that the error data reaches all the layers, so that they can compensate effectively, which is the whole point of training.
 
 ## Notation and Assumptions
-In order to formalize these notions, first we must get some notation out of the way. We have the following definitions, borrowed from the excellent [Neural Networks and Deep Learning](http://neuralnetworksanddeeplearning.com/):
+In order to formalize these notions, first we must get some notation out of the way. We have the following definitions:
 
 * $$ a^L $$ is the activation vector for layer $$ L $$, with dimensions $$ n_L \times 1 $$, where $$ n_L $$ is the number of units in layer $$ L $$.
 * $$ W^L $$ is the matrix of weights for layer $$ L $$, with dimensions $$ n_L \times n_{L-1} $$. Each element $$ W^L_{jk} $$ represents the weight of the connection from neuron $$ k $$ of the current layer to neuron $$ j $$ of the previous one.
@@ -120,7 +125,6 @@ Together, since this factor of $$ 1/16 $$ appears identically in both passes, it
 $$  \text{Var}\left[ W^{L} \right] = \frac{32}{n_\text{out} + n_\text{in}} $$
 
 ### Summary of Initialization Parameters
-
 
 | Activation Function   | Uniform Distribution $$ [-a,a] $$                       | Normal distribution                                          |
 | :-------------------: | :-----------------------------------------------------: | :-------------------:                                        |
