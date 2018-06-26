@@ -7,6 +7,32 @@
         src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
     </script>
 
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [['$','$'], ['\\(','\\)']],
+            processEscapes: true
+        },
+        jax: ["input/TeX","input/MathML","input/AsciiMath","output/CommonHTML"],
+        extensions: ["tex2jax.js","mml2jax.js","asciimath2jax.js",
+                     "MathMenu.js","MathZoom.js","AssistiveMML.js"],
+        TeX: {
+            extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"],
+            equationNumbers: {
+                autoNumber: "AMS"
+            },
+            Macros: {
+                bra: ["{\\mathinner{\\langle{#1}|}}",1],
+                ket: ["{\\mathinner{|{#1}\\rangle}}",1],
+                braket: ["{\\mathinner{\\langle{#1}\\rangle}}",1],
+                Bra: ["{\\left\\langle#1\\right|}",1],
+                Ket: ["{\\left|#1\\right\\rangle}",1]
+            }
+        }
+    });
+    </script>
+
+
 
   <body class="theme-base-08">
 
