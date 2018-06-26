@@ -1,5 +1,5 @@
 # Dependencies
-plugins: [jekyll-paginate]
+plugins: [jekyll-paginate, jekyll-scholar]
 markdown            : kramdown
 highlighter         : rouge
 
@@ -20,6 +20,11 @@ url                 : www.mnsgrg.com
 
 paginate            : 5
 paginate_path       : "blog/page:num"
+
+scholar:
+    style: apa
+    source: ./_bibliography
+    bibliography: "**/*.bib"
 
 
 # Custom vars

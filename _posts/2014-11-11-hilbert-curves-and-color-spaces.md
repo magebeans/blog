@@ -2,8 +2,6 @@
 layout: post
 ---
 
-Fractals
---------
 Fractals are incredibly cool. You know you're in for a treat when fractional
 dimensions are a (meaningful) thing and things like shapes that enclose a
 finite area with an infinite perimeter actually exist. A lot of fractals are
