@@ -4,7 +4,7 @@
  <title>Manas George</title>
  <link href="www.mnsgrg.com/atom.xml" rel="self"/>
  <link href="www.mnsgrg.com/"/>
- <updated>2018-06-26T15:57:03-07:00</updated>
+ <updated>2018-06-26T15:29:16-07:00</updated>
  <id>www.mnsgrg.com</id>
  <author>
    <name></name>
@@ -2223,7 +2223,8 @@ coordinates for the n-dimensional curve, &lt;a href=&quot;https://www.cs.dal.ca/
    <link href="www.mnsgrg.com/2014/11/05/natas-16-blind-grep/"/>
    <updated>2014-11-05T00:00:00-08:00</updated>
    <id>www.mnsgrg.com/2014/11/05/natas-16-blind-grep</id>
-   <content type="html">&lt;p&gt;I’ll try and explain how I solved the 16th Natas challenge in this post. You
+   <content type="html">&lt;h2 id=&quot;natas-16&quot;&gt;Natas 16&lt;/h2&gt;
+&lt;p&gt;I’ll try and explain how I solved the 16th Natas challenge in this post. You
 can find the challenge page &lt;a href=&quot;http://natas16.natas.labs.overthewire.org&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;Playing around with the page shows that the the page takes input, greps the

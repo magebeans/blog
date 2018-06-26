@@ -241,8 +241,6 @@ img+em {
 
 .profile-picture > img {
     display: inline;
-    border-bottom-left-radius: 5rem;
-    border-bottom-right-radius: 5rem;
 }
 
 /* Tables */
