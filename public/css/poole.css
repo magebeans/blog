@@ -229,10 +229,18 @@ blockquote p:last-child {
 }
 
 img {
-    /* display: block; */
+    display: block;
     max-width: 100%;
-    margin: 0 0 1rem;
+    margin: 2rem auto 2rem;
     border-radius: 5px;
+}
+
+img+em {
+    text-align: center;
+}
+
+.profile-picture > img {
+    display: inline;
 }
 
 /* Tables */
@@ -429,3 +437,23 @@ a.pagination-item:hover {
     border-bottom-right-radius: 4px;
   }
 }
+
+{% if site.scholar.style == "ieee" %}
+/* Turn off the numbered items for the IEEE style list */
+ol.bibliography li {
+    list-style-type:none;
+
+}
+ol.bibliography li + li { /* 10px between each two adjacent li's */
+    margin-top: 10px;
+}
+ol.bibliography { counter-reset: item }
+ol.bibliography li:before {
+    content: "[" counter(item) "] ";
+    counter-increment: item;
+    width:3em;
+    position:absolute;
+    text-indent:-2em;
+
+}
+{% endif %}
