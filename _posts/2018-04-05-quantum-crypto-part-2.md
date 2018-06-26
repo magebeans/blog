@@ -1,5 +1,6 @@
 ---
 layout: post
+toc: true
 ---
 
 This is the second in the Quantum Cryptography series of posts. This post
@@ -348,6 +349,6 @@ parameters, where greater distances result in intolerably high values of
 the QBER. Gisin{%cite Gisin2002%} finds the maximum range to be about 100km,
 practical maxima being closer to 50km owing to a variety of factors.
 
-Bibiliography
---------
+Bibliography
+============
 {% bibliography --cited %}

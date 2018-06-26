@@ -1,5 +1,5 @@
 # Dependencies
-plugins: [jekyll-paginate, jekyll-scholar]
+plugins: [jekyll-paginate, jekyll-scholar, jekyll-toc]
 markdown            : kramdown
 highlighter         : rouge
 

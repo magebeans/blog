@@ -1,5 +1,6 @@
 ---
 layout: post
+toc: true
 ---
 
 This post assumes that you know enough about neural networks to follow through some math involving the backpropagation equations. For the most part, I only do basic algebraic manipulations, with a small dusting of basic statistics thrown in. If you know nothing about neural nets and have an hour or so to spare, the excellent [Neural Networks and Deep Learning](http://neuralnetworksanddeeplearning.com/) is a good place to learn the basics, and getting as far as Chapter 2 should teach you enough to follow the math here. I try here to flesh out some of the math Glorot and Bengio skipped in their paper about initializing weights in deep neural networks, to better illuminate the intution behind why their method solves a longstanding problem facing the training of such networks.

@@ -1,5 +1,6 @@
 ---
 layout: post
+toc: true
 ---
 
 This is the first in a series of blog posts that make up my final report
@@ -280,12 +281,12 @@ something previously thought to be a mere pipe dream and standing as an
 ultimate stronghold of encryption that will weather theoretical
 advances, whether mathematical or computational.
 
-Bibiliography
---------
+Bibliography
+============
 {% bibliography --cited %}
 
 Footnotes
---------
+============
 [^1]: The notation $o(1)$ suggests a quantity that tends to $0$ as the
     input size increases
 
