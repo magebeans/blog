@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+<link href="http://gmpg.org/xfn/11" rel="profile">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+<!-- Enable responsiveness on mobile devices-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+<title>
+    
+    Quantum Crypto Part 3 &middot; Manas George
+    
+</title>
+
+<!-- CSS -->
+<link rel="stylesheet" href="/public/css/poole.css">
+<link rel="stylesheet" href="/public/css/syntax.css">
+<link rel="stylesheet" href="/public/css/hyde.css">
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+<!-- Icons -->
+<link rel="shortcut icon" href="public/favicon.ico">
+
+<!-- RSS -->
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-111529460-1"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-111529460-1');
+    </script>
+
+</head>
+
+
+    <script type="text/javascript"
+        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [['$','$'], ['\\(','\\)']],
+            processEscapes: true
+        },
+        jax: ["input/TeX","input/MathML","input/AsciiMath","output/CommonHTML"],
+        extensions: ["tex2jax.js","mml2jax.js","asciimath2jax.js",
+                     "MathMenu.js","MathZoom.js","AssistiveMML.js"],
+        TeX: {
+            extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"],
+            equationNumbers: {
+                autoNumber: "AMS"
+            },
+            Macros: {
+                bra: ["{\\mathinner{\\langle{#1}|}}",1],
+                ket: ["{\\mathinner{|{#1}\\rangle}}",1],
+                braket: ["{\\mathinner{\\langle{#1}\\rangle}}",1],
+                Bra: ["{\\left\\langle#1\\right|}",1],
+                Ket: ["{\\left|#1\\right\\rangle}",1]
+            }
+        }
+    });
+    </script>
+
+
+
+  <body class="theme-base-08">
+
+    <div class="sidebar">
+<div class="container sidebar-sticky">
+    <div class="sidebar-about">
+        <h1>
+            <a href="">
+                <div class="profile-picture">
+                    <img src="/assets/face.png" width="200"></img>
+                </div>
+                <!-- Manas George -->
+            </a>
+        </h1>
+        <p class="lead">Hacker, Programmer, Math geek.</p>
+    </div>
+
+    <nav class="sidebar-nav">
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <a class="sidebar-nav-item" href="/resume/">Resume</a>
+        
+        
+        
+        
+        
+        <a class="sidebar-nav-item" href="/">Blog</a>
+        
+        
+        
+        
+        
+        <a class="sidebar-nav-item" href="/blog/page2/">Blog</a>
+        
+        
+        
+
+        <a class="sidebar-nav-item" href="https://www.github.com/ManasGeorge">GitHub</a>
+        <!-- <a class="sidebar-nav-item" href="http://128.61.104.149">Wiki</a> -->
+    </nav>
+</div>
+</div>
+
+
+    <div class="content container">
+      <div class="post">
+  <h1 class="post-title">Quantum Crypto Part 3</h1>
+  <span class="post-date">26 Jun 2018</span>
+  <p>This is the last in the Quantum Cryptography series of posts. This post
+covers some of the experiments undertaken in the field and contemplates
+possible avenues of evolution for the technology.</p>
+
+<p>The practical utility of a functional system of quantum key distribution
+(QKD) is exceedingly high. It is perhaps too early to envision a future
+where all secure transmissions occur over quantum channels, although
+rapid progress is being made in pursuit of such a lofty goal.
+Traditional QKD is distance limited, and can only proceed over a single
+physical channel (either free space or telecommunications fiber, but not
+at the same time in series due to issues with frequency propagation and
+modulation <a href="#Elliott2005">[1]</a>). Furthermore, fiber cuts or intensive
+eavesdropping result in denial of service, rendering a single link
+effectively useless. However, a QKD network bypasses many of these
+limitations to a surprising degree, in comparison to standalone QKD
+systems. This section outlines some of the results that have been
+obtained in recent years pertaining to the establishment and maintenance
+of QKD networks.</p>
+
+<h2 id="quantum-networks">Quantum Networks</h2>
+
+<p>QKD is fundamentally limited by the nature of the links possible between
+devices; barring exotic protocols that are the subject of ongoing
+research, almost all QKD protocols deal with point to point distribution
+of keys, with the goal of establishing a shared secret between a pair of
+users. This means that a transition to a networked distribution process,
+where more than two users are involved, is relatively difficult, and
+must be accomplished through additional protocols layered over the
+fundamental choice of QKD protocol. <a href="#Alleaume2014">[2]</a> characterizes
+quantum networks in the following ways:</p>
+
+<ol>
+  <li>
+    <p>Optically switched quantum networks: In such networks, some optical
+operation (switching, multiplexing, beam-splitting, etc.) can be
+used to extend a network to multiple users. This can be done in two
+ways; passive switching, whereby a single beam of photons may be
+split into multiple, weaker beams, by randomly splitting single
+photons <a href="#Townsend1994">[3]</a>, or active switching, where two nodes of the
+network can be connected through a single quantum link by
+appropriately switching connections at other nodes so as to route
+the transmission correctly. Both methods effectively extend the
+quantum channel from one node to another with no interruption, and
+therefore carries no trust requirement on individual nodes; the same
+eavesdropping guarantees that secure single pair quantum
+transmissions are true for switched quantum channels, as the result
+is effectively a single, uninterrupted quantum channel that extends
+across multiple nodes <a href="#Alleaume2014">[2]</a>. Note, however, that this does
+not physically extend the range of the network, due to optical
+losses which effectively reduce the maximum range of the network.</p>
+  </li>
+  <li>
+    <p>“Full” quantum networks: A true quantum network would need to use
+quantum repeaters to overcome signal losses over long distances,
+removing the requirement that intermediate nodes be trusted, much in
+the same manner as optically switched quantum networks. However,
+quantum repeaters involve quantum memory and elaborate quantum
+operations that are currently outside the scope of physical
+realization, although the quantum memory requirement is being
+challenged, for instance, by <a href="#Azuma2015">[4]</a>. An alternative would be
+to use quantum relays, which are simpler, as they do not require
+quantum memory to implement. However, current technological
+limitations make quantum relays impractical for arbitrary range
+extensions.</p>
+  </li>
+  <li>
+    <p>Trusted Repeater QKD networks: This technique leverages classical
+memory to store local keys on every node, allowing for secure
+transmission of information between nodes using the local keys
+(using a One Time Pad). The local keys are replenished using QKD and
+are used for both unconditionally secure encryption and
+authentication. For global key transmission, the global key is sent,
+hop, by hop, along a series of nodes starting from the source and
+ending at the destination node. At each hop, the global key is
+encrypted and authenticated using the local key for that link,
+guaranteeing security as long as the intermediate nodes are trusted.
+Details of the security of this network architecture are in
+<a href="#Salvail2010">[5]</a>.</p>
+
+    <p><img src="/assets/quantum/trusted_repeater_node_path.png" alt="" />
+<em><a href="#Alleaume2014">[2]</a> “Hop-by-hop” transmission of the global key along a path in the network, encrypting/decrypting using local keys at each step. Each colored link represents an identical key pair shared between two neighbouring nodes that is used to encrypt messages between the nodes</em></p>
+  </li>
+</ol>
+
+<p>It is important to note that the networks under consideration are
+primarily for the purpose of key distribution. Any other communications
+between the nodes is immaterial, and could be performed on any channel.
+In order to simplify treatment and formulation of security guarantees,
+the key distribution function of the network is entirely decoupled from
+any other functions it may have. Only distribution is analyzed, under
+the rationale that secure key distribution leads to provable information
+theoretic communication using a one time pad.</p>
+
+<h2 id="the-darpa-quantum-network">The DARPA Quantum Network <a href="#Elliott2005">[1]</a></h2>
+
+<p>The DARPA Quantum Network consists of 6 nodes operating through
+telecommunications fiber between Harvard University, Boston University,
+and BBN Technologies in Cambridge, and has been in continuous operation
+since 2004. It is considered the first quantum cryptography network and
+the first QKD systems operating continuously over a metropolitan area.</p>
+
+<h3 id="systems">Systems</h3>
+
+<p>The network uses four different kinds of hardware systems:</p>
+
+<ol>
+  <li>
+    <p>BBN Mark 2 Weak-Coherent System: The core system transmits phase
+modulated photons over telecommunications fiber, using a Mach
+Zehnder interferometer to randomly modulate 1550nm laser pulses to
+one of four phases, thereby encoding both a basis and a value. The
+modulated pulses are augmented by bright pulses multiplexed over the
+same fiber to provide timing and framing information. On the
+receiving end, another interferometer randomly set to one of two
+phases performs demodulation, followed by by routing to one of two
+cooled InGaAs detectors.</p>
+  </li>
+  <li>
+    <p>BBN/BU Mark 1 Entangled System: A BB84-based system utilizing
+polarization-entangled photon pairs that are transmitted over
+telecommunications fiber. The basis value pairs needed for
+transmission are encoded by polarization modulation, with random
+basis selection performed by a beam splitter in a purely passive
+fashion. Phase modulation is carried out using an external source of
+randomness that drives carefully tuned interferometers. A key aspect
+of the system is the incorporation of polarization controls in order
+to mitigate the polarization scrambling effect of telecommunications
+fiber. Errors are caused by significant attenuation resulting from
+the interferometers and beam-splitters used, as well as the fiber
+itself. Detector dark count introduces additional errors in the form
+of spurious detection events, all of which contribute to an increase
+in the Quantum Bit Error Rate of the system.</p>
+  </li>
+  <li>
+    <p>NIST Freespace System <a href="#Bienfang2004">[6]</a>: Four vertical-cavity
+surface-emitting lasers (VCELs) are used to produce 250 picosecond
+pulses with a high extinction ratio, providing the quantum sources
+for the system. The pulses are then attenuated and coupled to
+freespace optics, where they are collimated and lineary polarized
+either vertically or in the $\pi/4$ direction, after which they are
+shaped to fill the output aperture of the transmission telescope. At
+the receiving end, an identical telescope receives the beam, passing
+it through a non-polarizing beam-splitting cube that performs a
+random choice of polarization basis, and then a polarizing
+beam-splitting cube that measures the value of the polarization
+through a fiber-couple detection box.</p>
+  </li>
+  <li>
+    <p>QinetiQ Freespace System <a href="#Tapster2005">[7]</a>: A BB84-based four-laser
+faint-pulse transmission system is used to create the four
+alternative polarization states, generating pulses at a rate of
+10MHz. On the receiving side, measurement is performed automatically
+using avalanche photodiodes (APDs), after which software mechanisms
+perform sifting, error correction and privacy amplification to
+generate a secure key. The key characteristics of the system are
+compactness and portability, providing a final key exchange rate of
+about 1kbit/s at a range of 40m.</p>
+  </li>
+</ol>
+
+<h3 id="operation">Operation</h3>
+
+<p>At a high level, the systems used in the network perform the following
+basic functions in order to arrive at a shared key:</p>
+
+<ol>
+  <li>
+    <p>Sifting: Reconciliation of the raw secret bit streams as described
+in the section on the BB84 protocol. This removes errors resulting
+from failed detection (due to transmission losses, photons lost to
+eavesdropping without replacement, or detector inefficiencies),
+wrong basis choice (where Bob does in fact detect the transmitted
+photon, but randomly selected the wrong basis in which to measure
+it), or multiple detection events (where multiple detectors fire on
+Bob’s end, as a result of which Bob cannot determine whether the
+symbol transmitted is a one or a zero, and therefore must discard
+it). This is done by public communication, after which only both
+parties end up with highly correlated “sifted” bits. The DARPA
+network implements both classic and SARG04 sifting.</p>
+  </li>
+  <li>
+    <p>Error Detection and Correction: Elimination of bits damaged during
+transmission, which is an inherently probabilistic process that
+reveals information to an eavesdropper Eve. The end result is that
+both parties end up with identical copies of a secret bit string
+with high probability, about which an eavesdropper Eve has some
+information. The QBER may also be estimated in this stage. The DARPA
+network implements a modification of the Cascade protocol as well a
+Forward Error Correction technique called Niagra <a href="#Pearson2004">[8]</a> that
+is designed by BBN. The Niagra protocol offers reduced
+communications overhead, error correction delay, and CPU usage, at
+the expense of a small decrease in coding efficiency.
+<a href="#Elliott2005">[1]</a>.</p>
+  </li>
+  <li>
+    <p>Entropy estimation: An accurate estimate of the amount of entropy in
+the sifted bits, beyond what Eve might have information about, is a
+necessary input to the privacy amplification step, and so is crucial
+for the security of a QKD system. The DARPA network implements four
+measures of this entropy, the details of which may be found in
+<a href="#Elliott2005">[1]</a>.</p>
+  </li>
+  <li>
+    <p>Privacy Amplification: As detailed in previous sections, this allows
+Alice and Bob to reduce the amount of information gleaned by Eve
+about their shared bits to some low acceptable level. The DARPA
+network uses a linear hash function over the Galois Field $GF[2^n]$
+(corresponding to polynomials with coefficient $0$ or $1$ and degree
+less than $n$), where $n$ is the number of error-corrected bits in a
+transmission. The QKD node that initiates amplification selects the
+number of bits $m$ of the resulting hash, the primitive polynomial
+of the field, a multiplier $n$ and an $m$ bit polynomial to add to
+the product. Each side now has the information required to construct
+the hash, which is truncated to $m$ bits and used to perform privacy
+amplification.</p>
+  </li>
+  <li>
+    <p>Authentication: In this phase, Alice and Bob assure each other that
+they are really exchanging information with each other, and not with
+Eve, with high probability. The DARPA network uses the existing
+authentication mechanisms of the Internet security architecture to
+perform authentication. This relies on pre-shared secret keys,
+although extensions using Universal Hashing are possible, which
+allow continuous authentication using secret bits derived from
+continuous QKD.</p>
+  </li>
+</ol>
+
+<h3 id="conclusion">Conclusion</h3>
+
+<p>The DARPA network represented a huge step forward in the implementation
+of quantum networks, showing that it is viable to conduct QKD in a
+reliable, practically autonomous fashion over a relatively widespread
+geographic area. The consolidation of multiple QKD technologies and the
+close partnership between government agencies, research institutions,
+and industry were a promising forerunner of the kind of progress to
+expect in future years, and the promises made by the success of this
+endeavor have been borne out in the subsequent proliferation of QKD
+implementations, notably the SECOQC <a href="#Peev2009">[9]</a> project.</p>
+
+<h2 id="qkd-secured-bank-transfer">QKD secured bank transfer <a href="#Fedrizzi2005">[10]</a></h2>
+
+<p>One of the most widely touted applications for a practical QKD system is
+securing financial transfers. The first step in this direction was taken
+in 2004, when researchers set up the first real-world application of an
+entangled-state quantum cryptography protocol based on BB84. The
+generated keys were used to secure an online wire transfer from the
+Vienna City Hall to the headquarters of Bank-Austria Creditanstalt.</p>
+
+<p>Keeping in mind the theoretical vulnerability of pulse-based BB84
+implementations to photon number splitting (PNS) attacks, the system in
+question used entangled photon pairs <a href="#Ekert1991">[11]</a>, in a modification of
+the BB84. In such a system, the information to be transferred was stored
+in correlations between the results of measurements on the individual
+photons of the pair. Furthermore, the randomness of the generated key in
+such a system arises from the quantum randomness of the measurement
+itself, and does not rely on an external source of randomness, as
+attenuated laser pulse systems do.</p>
+
+<p>The photon source was a compact device based on type-II spontaneous
+parametric down-conversion, which produces entangled pairs with
+orthogonal polarizations. The produced pair was then split up, with one
+photon being sent to Alice directly, and the other sent to Bob through
+1.45km of optical fiber specially installed through the Viennese sewer
+system. The associated computations for key distillation were carried
+out on a dedicated QKD hardware device <a href="#Lieger2004">[12]</a>. Classical
+communication was carried out over a TCP/IP connection through an
+Ethernet bridge. The average QBER over the entire run time of the
+experiment was less than 8%, of which 2.6% came from detection
+imperfections and 1.2% came from imperfect production of the entangled
+states, neither of which can be exploited by an eavesdropper and hence
+can be excluded from the QBER factor in the calculations required for
+privacy amplification. The resulting system had a raw transmission rate
+of 80 bits/s after error correction and privacy amplification, which is
+impressive for a first-use demo, but has been superseded by newer
+technologies, as will be discussed in later sections.</p>
+
+<p>The experiment carried out here marks an important milestone in the
+practical development of QKD, demonstrating the viability of real-time
+quantum cryptography systems in a realistic environment. The success of
+this work clearly foreshadows the later successes of quantum
+cryptography, such as its use in the Geneva elections of 2007, discussed
+later, and the increasingly ambitious projects involving the
+establishment of QKD networks seen in later years.</p>
+
+<h2 id="geneva-elections">Geneva Elections</h2>
+
+<p>The 2007 Geneva elections saw the first commercial use of quantum
+cryptography, where ID Quantique’s (IDQ) Cerberis system was used to
+secure the transmission of vote counts from the central ballot-counting
+station to the government data center <a href="#Messmer07">[13]</a>. The version of
+Cerberis used consisted of quantum key servers on both ends for key
+generation, as well as a gigabit Ethernet link that carried the
+encrypted transmissions <a href="#Peck2007">[14]</a>. The keys generated by the quantum
+link were used to transmit a 256-bit AES key, which was then used to
+provide secure point-to-point communication between the counting station
+and the data center by encrypting all messages between the two centers.
+As an additional security guarantee, both the AES key and the quantum
+key were renewed upto 60 times an hour in both directions <a href="#IDQ10">[15]</a>.</p>
+
+<h2 id="secure-communications-based-on-quantum-cryptography">Secure Communications based on Quantum Cryptography <a href="#Peev2009">[9]</a></h2>
+
+<p>Between 2004 and 2008, 41 European research and industrial organizations
+worked together with the goal of producing a scalable system of QKD with
+an average link length of about 25km, demonstrating the practical
+utility of the technologies developed so far that are capable of
+supporting secure quantum transmissions, under a project titled Secure
+Communications based on Quantum Cryptography (SECOQC). The highlight of
+this work consists in the systematic development of a design that allows
+unrestricted scalability and interoperability of QKD technologies. The
+development of an internal communications standard (titled the Q3P)
+communications interface was instrumental, allowing QKD devices to
+communicate seamlessly with higher network layers. The entire
+infrastructure of the project is based around a single modular design
+utilizing the trusted repeater network paradigm.</p>
+
+<h3 id="overview">Overview</h3>
+
+<p>Each node in the SECOQC architecture is built as the composition of two
+modules, denoting a separation of concerns. A single node has many
+functions; it must manage QKD keys generated over QKD links, ensure
+encryption and decryption services for key transport across links,
+communicate with other devices in a classical manner, manage keys
+internally, and provide other cryptographic services (for key
+distillation and privacy amplification, for instance). Given this, the
+responsibilities of the node are split between the two modules, called
+the <em>node module</em> and the <em>QKD device</em>. The node module performs the
+network functions required, facilitating classical communications,
+providing cryptography services, managing keys, etc.). It interfaces
+with the QKD module to obtain the local QKD key that it then uses to
+communicate securely with other nodes on the network. The QKD device has
+the sole responsibility of communication over the quantum channel,
+followed by key distillation and storing it in the classical node
+module. This design allows for the use of arbitrary QKD devices, as long
+as they adhere to a common interface detailed by the project, which
+means that the network can be scaled up easily through the addition of a
+variety of QKD devices. Another factor in the easy scaling of the
+network is the fact that the number of keys that must be stored
+increases linearly with the network size, as opposed to quadratically.
+This is because, in the network graph, only neighbouring nodes need to
+store link keys corresponding to the edge connecting them, as opposed to
+every pair of nodes having to store keys in other network topologies.</p>
+
+<p>The SECOQC network itself consists of six nodes connected by eight
+quantum links, with deployment taking place in 2008 and a public
+demonstration taking place during a QKD conference in October, 2008. The
+demo involved a one-time pad encrypted telephone communication, a secure
+video conference involving all deployed nodes, and a number of rerouting
+experiments. In line with the focus of SECOQC’s work, the various
+transmissions that were part of the demo took place, strictly speaking,
+over classical channels. The keys used to secure these channels were
+derived using the QKD network, fulfilling the objective of the project
+to create a robust, extensible quantum distribution network.</p>
+
+<h3 id="systems-1">Systems</h3>
+
+<p>Six different QKD systems were prototyped in Vienna as part of the
+project:</p>
+
+<ol>
+  <li>
+    <p>Three upgraded ‘Cerberis’ systems from the Swiss company id
+Quantique, which are plug and play pairs that can be used to set up
+a QKD link. This system employs phase coding to carry out the BB84
+protocol and the SARG <a href="#Makoto2006">[16]</a> protocol (a modification of BB84
+that is ideal for weak Poissonian sources). Multiple results testify
+to high reliability of id Quantique systems, which was used for
+ballot counting in the Swiss national elections of 2007, and have
+been used for the same purpose in each election in the Geneva
+canton. The performance of the upgraded system over a distance of
+25km equated to a secret key rate of 1kbit/s.</p>
+  </li>
+  <li>
+    <p>One-way weak coherent pulse system with decoy states (Tosh) using a
+phase-encoding QKD system with two interferometers, stabilized by
+pulses that are time multiplexed with the quantum signals. The
+protocol implemented is a weak coherent pulse (WCP) decoy state +
+vacuum state BB84 variant, the details of which can be found in
+<a href="#Hwang2002">[17]</a>. The distinguishing feature is the use of decoy states
+in order to estimate expected signal pulse losses, followed by
+termination of the protocol if the estimated loss is much lower than
+the experimentally observed loss. This is a remediation technique
+for the photon-number-splitting attack against BB84, where an
+eavesdropper surreptitiously diverts some fraction of the
+transmitted photons. The key rate for a fiber length of 25km was
+found to be 5.7 kbit/s, almost six times higher than the required
+rate in the SECOQC specification. Furthermore, these rates are
+almost a hundredfold improvement over BB84 without decoy pulses
+<a href="#Gobby2004">[18]</a>.</p>
+  </li>
+  <li>
+    <p>A coherent-one-way (COW) system that is an experimental realization
+of distributed phase reference protocols. The COW protocol is
+distantly related to the BB84 protocol, with the addition of a third
+basis (corresponding to time-of-arrival)) and using one of the
+original bases only to ensure coherence <a href="#Lo2005">[19]</a>. At a high level,
+Alice either sends pulses of weak coherent states or completely
+blocks the beam (corresponding to vacuum pulses). Bob then uses an
+interferometer and time-of-arrival measurements to distinguish
+between bit values and check the coherence of each pulse. The
+interferometer information provides indicates of eavesdropping.
+Further details may be found in <a href="#Stucki2005">[20]</a>.</p>
+  </li>
+  <li>
+    <p>A polarization entanglement QKD system (Ent) that supports
+concurrent active stabilization of the optical elements for stable
+long-term automated operation. This system implements the BBM92
+<a href="#Bennett1992">[21]</a> protocol, and includes numerous active automated
+stabilization modules, allowing for completely autonomous startup
+and continued uninterrupted service. A reliable key rate of about 2
+kbit/s was observed for its operation during the SECOQC
+demonstration, and a more nuanced discussion of the system may be
+found in <a href="#Treiber2009">[22]</a>.</p>
+  </li>
+  <li>
+    <p>A continuous variables (CV) system with Gaussian modulation, reverse
+reconciliation and homodyne detection of the coherent light pulses.
+The key information is stored in both quadratures of a coherent
+state of the electromagnetic field, which can then be measured using
+homodyne detection. The quadratures are simply the operators defined
+by $\hat{p} = \frac{1}{\sqrt{2}}(\hat{a}^\dagger + \hat{a})$ and
+$\hat{q} = \frac{1}{\sqrt{2}}(\hat{a}^\dagger - \hat{a})$, where
+$\hat{a}$ and $\hat{a}^\dagger$ are the annihilation and creation
+operators of the electromagnetic field. The process goes as follows;
+Alice generates coherent laser pulses that are split into a weak
+signal and a strong local oscillator (LO). The signal is then
+randomly modulated according to a centered Gaussian distribution in
+both quadratures. The LO and the signal are then time and
+polarization multiplexed and transmitted to Bob on the same physical
+optical fiber. At Bob’s end, the two signals are combined and
+converted into an electric signal using a homodyne detector, where
+the term homodyne simply refers to the fact that the LO and the
+signal pulse are both derived from the same light source. The output
+signal is proportional to the quadrature of the signal, which
+depends on the phase difference between the LO and the signal. Bob
+randomly picks either no phase difference or a difference of $\pi/2$
+to select one of the two quadratures for measurement. Details of the
+protocol may be found in <a href="#Andersen2010">[23]</a>.</p>
+  </li>
+  <li>
+    <p>A free space link, using the BB84 protocol with decoy states
+<a href="#Hwang2002">[17]</a> and polarization encoded laser pulses.</p>
+  </li>
+</ol>
+
+<h3 id="conclusion-1">Conclusion</h3>
+
+<p>The SECOQC network is a powerful testament to the progress made in the
+practical implementation of QKD networks using the trusted repeater
+paradigm. It serves as a landmark in paving the way for seamless
+integration of QKD devices into higher level network layers through the
+development of native protocols (Q3P, QKD-NL and QKD-TL) and by
+exemplifying the performance, stability and robustness of a modular
+architecture that separates QKD from classical networking functions. The
+innovative core of the project can be boiled down to the concentration
+of all QKD functions into a single node device, which makes it easy to
+add links and grow the network when required, enhancing the scalability
+properties of the network. Most importantly, the demonstration carried
+out as part of the project shows that it is possible to perform every
+day functions (telephony and video conferencing, for instance) in a
+secure manner, building off of the inherent security of the QKD
+paradigm.</p>
+
+<h1 id="limitations">Limitations</h1>
+
+<h2 id="distance">Distance</h2>
+
+<p>Most QKD systems today rely on optical transmission of photons, either
+via telecommunications fiber or free space. Both media pose technical
+challenges in terms of attenuation and preserving polarization that must
+be overcome if global QKD is to become a reality. The primary form of
+noise in photonic transmissions is loss over distances <a href="#Sangouard2011">[24]</a>.
+Currently, the best systems known span distances of between 100 and
+140km (missing reference). Classical communications work around the
+problem of attenuation by using repeaters, something that is difficult
+to emulate in the quantum regime due to the no-cloning theorem. A
+working quantum repeater would require matter quantum memory
+(missing reference), and might even be more difficult than the
+task of developing a universal quantum computer, due to the constraints
+involved (in particular, the quantum memories in question must satisfy
+DiVincenzo’s five criteria for universal quantum computers, as well as
+his additional (harder) criterion. <a href="#DiVincenzo2000">[25]</a>). However, the
+forefront of research today suggests alternate formulations of quantum
+repeaters that do away with the requirement for quantum memories and may
+provide a feasible way to extend the range of QKD <a href="#Azuma2015">[4]</a>.</p>
+
+<h2 id="speed">Speed</h2>
+
+<p>Current QKD systems are limited in key transfer rate by a multitude of
+factors; the sifting process, transmission errors, detector
+inefficiencies, attenuation, additionally key bits sacrificed to privacy
+amplification, as well as other influences all combine to reduce the
+number of secure viable key bits transmitted in a QKD link. The
+transmission rate is intricately tied to the range of the system;
+increased range decreases the probability that a qubit reaches the
+destination receiver, and attenuation along the way may mean that
+detection probability is lowered even if the destination is reached. The
+rate also depends on the details of the system used; certain approaches
+offer higher rates than others. The experimental SECOQC project
+<a href="#Peev2009">[9]</a> recommended a baseline key transmission rate of 1kbit/s over
+a 25km link, which was exceeded handily by some systems used in the
+project, with even higher rates at shorter distances, as high as 50
+kbits/s over an 80m free space link <a href="#Peev2009">[9]</a>. In fact, rates as high
+as 1.02 Mbit/s have been seen at distances of 20km using fiber links
+<a href="#Dixon2008">[26]</a>. In comparison to traditional communications
+infrastructure, such rates are almost laughably small, which means that
+QKD is likely to be used only for the highest security applications in
+the near future. However, advances in high-speed single photon detectors
+<a href="#Yuan2007">[27]</a> promise, among others, promise far higher rates in years to
+come.</p>
+
+<h2 id="cost">Cost</h2>
+
+<p>A significant obstacle to the widespread adoption of QKD systems is the
+high cost of setting up and maintaining the equipment required for their
+use. Here, the use of telecommunications fiber, as well as the reliance
+on classical communications technologies for certain parts of the
+protocols mitigate some of the investment, as existing infrastructure
+can be reused. On the other hand, specialized equipment for the
+generation of entangled pairs, for instance, or the modulation of weak
+light pulses, require capital investments that are many orders of
+magnitude higher than traditional cryptographic systems. The emergence
+of a number of companies in the QKD space (ID Quantique, MagiQ
+Technologies, Swiss Quantum, Battelle, etc.) are a promising indicator
+that demand for such systems is healthy in environments where security
+is of paramount importance, and the prevalent mood is that mass
+production and economies of scale, coupled with technological advances
+in the manufacture of the components required (detectors, especially),
+will eventually bring the cost of QKD systems down to a manageable
+amount. Furthermore, QKD systems are often much cheaper than the
+alternative in many high security environments, where the prevalent
+method of key distribution is the use of couriers to physically exchange
+random key material, with a much lower security guarantee.</p>
+
+<h1 id="future">Future</h1>
+
+<h2 id="possible-adoption-trajectories">Possible adoption trajectories</h2>
+
+<p>The types of environments best suited for the balance of security and
+cost offered by QKD networks are controlled, high-value organizations
+that require extremely strong security guarantees over long periods of
+time. QKD, combined with one-time pad encryption, offers <em>unconditional
+security</em>, as defined by Diffie and Hellman <a href="#Diffie1976">[28]</a>, which
+protects secrets from any form of cryptanalysis, no manner how
+computationally or mathematically advanced. Compare this with the
+vulnerability of traditional encryption schemes to expanding
+computational power over time; leaps in the amount of processing power
+possessed by novel systems reduce the complexity of a brute force attack
+on, say, 256-bit AES to the point where ciphertexts from today, stored
+by an adversary until such time in the future as computational power has
+reached the point where it is feasible to perform cryptanalysis on such
+ciphertexts, maybe decrypted in the future. Only the one-time pad offers
+any guarantee against such attacks, and only QKD has the potential to
+distribute keys for use in the one-time pad in a relatively efficient,
+scalable manner. Therefore, sensible predictions about the adoption of
+QKD must begin with environments such as government organizations,
+financial institutions, global military organizations, among others. It
+is possible that QKD technology may follow a trajectory not too
+different from that of the internet; beginning as the sole province of
+research institutions and government-funded projects, and then gradually
+expanding to encompass businesses and industry, eventually reaching a
+sort of threshold where widespread mass adoption becomes possible, and
+the dream of provably secure communication for all becomes true.</p>
+
+<h2 id="satellite-based-qkd">Satellite-based QKD</h2>
+
+<p>One of the most attractive proposals for a global QKD system leverages
+free space transmissions between ground and satellite systems for key
+exchange. Development in this area is well underway. A research effort
+from 2002 demonstrated secure key exchange over a free space link at
+23.4km <a href="#Kurtsiefer2002">[29]</a>, with the attenuation results obtained
+indicating that near earth key exchange (at a range of 500-1,000km)
+should be possible in the near future. It has been almost 13 years since
+this result, and the proposal made by that paper seems achievable at
+present. A collaboration between industry partners and the Canadian
+Space agency over a mission called QEYSSat (Quantum Encryption and
+Science Satellite) is underway, proposing the use of a microsatellite
+located in low earth orbit at about 600km carrying an optical receiver
+with 40cm aperture as the main optical instrument. The group has
+conducted studies of transmission losses in such regimes, successfully
+operating a system at upto 60dB losses <a href="#Meyer-Scott2011">[30]</a>, even in the
+face of strong turbulence, countered with careful post-processing
+<a href="#Erven2012">[31]</a>. Ensuring the robust and reliable operation of such a
+service remains a goal for the future, paving the way for optical links
+to low earth satellites that may eventually form the basis for a global
+system of QKD. Further applications of satellite QKD could be in the
+secure distribution of keys for satellite remote access and for secure
+inter-satellite links <a href="#PerdiguesArmengol2008">[32]</a>.</p>
+
+<p><img src="/assets/quantum/satellite.png" alt="" />
+<em><a href="#Jennewein2014">[33]</a> An artist’s rendering of QKD via a trusted satellite node</em></p>
+
+<h2 id="the-quantum-internet">The Quantum Internet <a href="#Kimble2008">[34]</a></h2>
+
+<p>One of the key results of research into quantum cryptography is the
+maturation of technologies that allow for the creation of purely quantum
+links between systems, transporting quantum states between
+geographically separated sites with high fidelity, maintaining important
+quantum properties like entanglement. Carrying out this idea to its
+logical conclusion leads to the idea of a quantum internet, whereby a
+network of computational nodes linked by quantum channels would be
+empowered to perform computational tasks beyond classical physics. For
+instance, Preskill’s notion of quantum software <a href="#Preskill1999">[35]</a>, used to
+describe difficult-to-create quantum states that perform useful quantum
+computations, would find a distribution mechanism in such a quantum
+internet. Perhaps most dazzling is the exponential increase in state
+space that would be produced by full quantum connectivity between nodes
+of such a network; a fully quantum network of $n$ nodes each with $k$
+quantum bits would have a state space on the order of $2^{kn}$, whereas
+such a network that utilized only classical connections would have a
+state space of significantly lower dimension, on the order of $n2^k$.
+However, fully realizing such a system would require overcoming rather
+large technical difficulties in local quantum processing, quantum
+repeaters, and error-corrected quantum teleportation, as well as
+advances in quantum memory. Theoretically, the developments required
+would signal a shift in focus from concentrating on highly specialized
+components (say, systems comprising of single electrons trapped in
+crystals) to more complex dynamical quantum systems composed of many
+such building blocks.</p>
+
+<h2 id="bibiliography">Bibiliography</h2>
+<ol class="bibliography"><li>
+
+
+
+
+
+<span id="Elliott2005">C. Elliott, A. Colvin, D. Pearson, O. Pikalo, J. Schlafer, and H. Yeh, “Current status of the DARPA Quantum Network,” pp. 1–12, 2005.</span>
+
+
+
+</li>
+<li>
+<a href="http://www.sciencedirect.com/science/article/pii/S0304397514006963">
+
+
+
+
+
+
+<span id="Alleaume2014">R. Alléaume <i>et al.</i>, “Using quantum key distribution for cryptographic purposes: A survey,” <i>Theor. Comput. Sci.</i>, vol. 560, pp. 62–81, 2014.</span>
+
+
+
+</a>
+
+</li>
+<li>
+
+
+
+
+
+<span id="Townsend1994">P. D. Townsend, S. J. D. Phoenix, K. J. Blow, and S. M. Barnett, “Design of quantum cryptography systems for passive optical networks,” <i>Electron. Lett.</i>, vol. 30, no. 22, p. 1875, 1994.</span>
+
+
+
+</li>
+<li>
+<a href="http://www.nature.com/doifinder/10.1038/ncomms7787">
+
+
+
+
+
+
+<span id="Azuma2015">K. Azuma, K. Tamaki, and H.-K. Lo, “All-photonic quantum repeaters,” <i>Nat. Commun.</i>, vol. 6, p. 6787, 2015.</span>
+
+
+
+</a>
+
+</li>
+<li>
+<a href="iospress.metapress.com/index/x340647040n00064.pdf\backslashnhttp://arxiv.org/pdf/0904.4072">
+
+
+
+
+
+
+<span id="Salvail2010">L. Salvail, M. Peev, E. Diamanti, and R. Alléaume, “Security of trusted repeater quantum key distribution,” <i>J. Comput. Secur.</i>, vol. 18, no. 1, pp. 61–87, 2010.</span>
+
+
+
+</a>
+
+</li>
+<li>
+
+
+
+
+
+<span id="Bienfang2004">J. Bienfang <i>et al.</i>, “Quantum key distribution with 1.25 Gbps clock synchronization.,” <i>Opt. Express</i>, vol. 12, no. 9, pp. 2011–2016, 2004.</span>
+
+
+
+</li>
+<li>
+<a href="http://proceedings.spiedigitallibrary.org/proceeding.aspx?articleid=864746">
+
+
+
+
+
+
+<span id="Tapster2005">P. R. Tapster, P. M. Gorman, D. M. Benton, D. M. Taylor, and B. S. Lowans, “Developments towards practical free-space quantum cryptography,” vol. 5815, pp. 176–179, 2005.</span>
+
+
+
+</a>
+
+</li>
+<li>
+<a href="http://scitation.aip.org/content/aip/proceeding/aipcp/10.1063/1.1834439">
+
+
+
+
+
+
+<span id="Pearson2004">D. Pearson, “High-speed QKD Reconciliation using Forward Error Correction,” <i>AIP Conf. Proc.</i>, vol. 734, no. 2004, pp. 299–302, 2004.</span>
+
+
+
+</a>
+
+</li>
+<li>
+<a href="http://iopscience.iop.org/1367-2630/11/7/075001">
+
+
+
+
+
+
+<span id="Peev2009">M. Peev, C. Pacher, and R. Alléaume, “The SECOQC quantum key distribution network in Vienna,” <i>New J. Phys.</i>, vol. 11, p. 075001, 2009.</span>
+
+
+
+</a>
+
+</li>
+<li>
+
+
+
+
+
+<span id="Fedrizzi2005">a. Fedrizzi <i>et al.</i>, “Practical quantum key distribution with polarization entangled photons,” <i>2005 Eur. Quantum Electron. Conf. EQEC ’05</i>, vol. 2005, no. 16, p. 303, 2005.</span>
+
+
+
+</li>
+<li>
+
+
+
+
+
+<span id="Ekert1991">A. K. Ekert, “Quantum Cryptography Based on Bell’s Theorem,” <i>Phys. Rev. Lett.</i>, vol. 67, no. 6, pp. 661–663, 1991.</span>
+
+
+
+</li>
+<li>
+<a href="http://cat.inist.fr/?aModele=afficheN&amp;cpsidt=17633865\backslashnhttp%3A%2F%2Fwww.eurasip.org%2FProceedings%2FEusipco%2FEusipco2004%2Fdefevent%2Fpapers%2Fcr1391.pdf&amp;ei=OXnTToS2B8Gp4gTvwNBS&amp;usg=AFQjCNExLjbA_kMPxmUadP5IKmgrMiIDrA">
+
+
+
+
+
+
+<span id="Lieger2004">R. Lieger, T. Lorunser, G. Humer, and F. Schupfer, “Embedding quantum cryptography on DSP-boards,” <i>Proc. EUSIPCO-2004, 12th Eur. Signal Process. Conf.</i>, pp. 2027–2030, 2004.</span>
+
+
+
+</a>
+
+</li>
+<li>
+<a href="http://www.networkworld.com/article/2286834/lan-wan/quantum-cryptography-to-secure-ballots-in-swiss-election.html">
+
+
+
+
+
+
+<span id="Messmer07">E. Messmer, “Quantum cryptography to secure ballots in Swiss election Advanced form of cryptography uses photons to exchange encryption keys,” <i>Netw. World</i>, pp. 1–3, 2007.</span>
+
+
+
+</a>
+
+</li>
+<li>
+<a href="http://spectrum.ieee.org/computing/networks/geneva-vote-will-use-quantum-cryptography">
+
+
+
+
+
+
+<span id="Peck2007">M. E. Peck, “Geneva Vote Will Use Quantum Cryptography,” <i>IEEE Spectr.</i>, pp. 1–2, 2007.</span>
+
+
+
+</a>
+
+</li>
+<li>
+<a href="http://www.idquantique.com/wordpress/wp-content/uploads/user-case-gva-gov.pdf">
+
+
+
+
+
+
+<span id="IDQ10">IQ Quantique, “Secure Data Transfer for Elections,” pp. 1–2, 2010.</span>
+
+
+
+</a>
+
+</li>
+<li>
+<a href="http://arxiv.org/abs/quant-ph/0603066">
+
+
+
+
+
+
+<span id="Makoto2006">E. Makoto, H. Manabu, and H. Imai, “A Quantum Key Distribution Protocol with Selecting Announced States, Robust against Photon Number Splitting Attacks,” p. 4, 2006.</span>
+
+
+
+</a>
+
+</li>
+<li>
+<a href="http://arxiv.org/abs/quant-ph/0211153">
+
+
+
+
+
+
+<span id="Hwang2002">W.-Y. Hwang, “Quantum Key Distribution with High Loss: Toward Global Secure Communication,” <i>Computer (Long. Beach. Calif).</i>, no. August, p. 4, 2002.</span>
+
+
+
+</a>
+
+</li>
+<li>
+
+
+
+
+
+<span id="Gobby2004">G. Gobby, Z. L. Yuan, and A. J. Shields, “Unconditionally secure quantum key distribution over 50km of standard telecom fibre,” <i>Electron. Lett.</i>, vol. 40, no. 25, pp. 1603–1605, 2004.</span>
+
+
+
+</li>
+<li>
+<a href="http://www.springerlink.com/content/62ju52euu16uy6cn/">
+
+
+
+
+
+
+<span id="Lo2005">H.-K. Lo, H. F. Chau, and M. Ardehali, “Efficient Quantum Key Distribution Scheme and a Proof of Its Unconditional Security,” <i>J. Cryptol.</i>, vol. 18, no. 2, pp. 133–165, 2005.</span>
+
+
+
+</a>
+
+</li>
+<li>
+
+
+
+
+
+<span id="Stucki2005">D. Stucki, N. Brunner, N. Gisin, V. Scarani, and H. Zbinden, “Fast and simple one-way quantum key distribution,” <i>Appl. Phys. Lett.</i>, vol. 87, no. 19, pp. 1–3, 2005.</span>
+
+
+
+</li>
+<li>
+
+
+
+
+
+<span id="Bennett1992">C. H. Bennett, G. Brassard, and N. D. Mermin, “Quantum cryptography without Bell’s theorem,” <i>Phys. Rev. Lett.</i>, vol. 68, no. 5, pp. 557–559, 1992.</span>
+
+
+
+</li>
+<li>
+<a href="http://arxiv.org/abs/0901.2725">
+
+
+
+
+
+
+<span id="Treiber2009">A. Treiber <i>et al.</i>, “Fully automated entanglement-based quantum cryptography system for telecom fiber networks,” <i>New J. Phys.</i>, vol. 11, no. 4, p. 20, 2009.</span>
+
+
+
+</a>
+
+</li>
+<li>
+<a href="http://arxiv.org/abs/1008.3468">
+
+
+
+
+
+
+<span id="Andersen2010">U. L. Andersen, G. Leuchs, and C. Silberhorn, “Continuous Variable Quantum Information Processing,” pp. 337–354, 2010.</span>
+
+
+
+</a>
+
+</li>
+<li>
+
+
+
+
+
+<span id="Sangouard2011">N. Sangouard, C. Simon, H. De Riedmatten, and N. Gisin, “Quantum repeaters based on atomic ensembles and linear optics,” <i>Rev. Mod. Phys.</i>, vol. 83, no. 1, pp. 33–80, 2011.</span>
+
+
+
+</li>
+<li>
+<a href="http://arxiv.org/abs/quant-ph/0002077">
+
+
+
+
+
+
+<span id="DiVincenzo2000">D. P. DiVincenzo and IBM, “The Physical Implementation of Quantum Computation,” <i>Fortschritte der Phys.</i>, vol. 48, pp. 771–783, 2000.</span>
+
+
+
+</a>
+
+</li>
+<li>
+
+
+
+
+
+<span id="Dixon2008">a R. Dixon, Z. L. Yuan, J. F. Dynes, a W. Sharpe, and a J. Shields, “Gigahertz decoy quantum key distribution with 1 Mbit/s secure key rate.,” <i>Opt. Express</i>, vol. 16, no. 23, pp. 18790–18797, 2008.</span>
+
+
+
+</li>
+<li>
+
+
+
+
+
+<span id="Yuan2007">Z. L. Yuan, B. E. Kardynal, A. W. Sharpe, and A. J. Shields, “High speed single photon detection in the near infrared,” <i>Appl. Phys. Lett.</i>, vol. 91, no. 4, pp. 41113–41114, 2007.</span>
+
+
+
+</li>
+<li>
+<a href="http://ieeexplore.ieee.org/lpdocs/epic03/wrapper.htm?arnumber=1055638">
+
+
+
+
+
+
+<span id="Diffie1976">W. Diffie and M. Hellman, “New directions in cryptography,” <i>IEEE Trans. Inf. Theory</i>, vol. 22, no. 6, pp. 644–654, 1976.</span>
+
+
+
+</a>
+
+</li>
+<li>
+
+
+
+
+
+<span id="Kurtsiefer2002">C. Kurtsiefer <i>et al.</i>, “A step towards global key distribution.,” <i>Nature</i>, vol. 419, no. 6906, p. 450, 2002.</span>
+
+
+
+</li>
+<li>
+
+
+
+
+
+<span id="Meyer-Scott2011">E. Meyer-Scott, Z. Yan, A. MacDonald, J. P. Bourgoin, H. Hübel, and T. Jennewein, “How to implement decoy-state quantum key distribution for a satellite uplink with 50-dB channel loss,” <i>Phys. Rev. A - At. Mol. Opt. Phys.</i>, vol. 84, no. 6, pp. 1–9, 2011.</span>
+
+
+
+</li>
+<li>
+
+
+
+
+
+<span id="Erven2012">C. Erven <i>et al.</i>, “Studying free-space transmission statistics and improving free-space quantum key distribution in the turbulent atmosphere,” <i>New J. Phys.</i>, vol. 14, pp. 1–20, 2012.</span>
+
+
+
+</li>
+<li>
+
+
+
+
+
+<span id="PerdiguesArmengol2008">J. M. Perdigues Armengol <i>et al.</i>, “Quantum communications at ESA: Towards a space experiment on the ISS,” <i>Acta Astronaut.</i>, vol. 63, no. 1-4, pp. 165–178, 2008.</span>
+
+
+
+</li>
+<li>
+<a href="http://dx.doi.org/10.1117/12.2041693">
+
+
+
+
+
+
+<span id="Jennewein2014">T. Jennewein <i>et al.</i>, “QEYSSAT: a mission proposal for a quantum receiver in space,” vol. 8997, pp. 89970A–89970A–7, 2014.</span>
+
+
+
+</a>
+
+</li>
+<li>
+
+
+
+
+
+<span id="Kimble2008">H. J. Kimble, “The quantum internet.,” <i>Nature</i>, vol. 453, no. 7198, pp. 1023–1030, 2008.</span>
+
+
+
+</li>
+<li>
+
+
+
+
+
+<span id="Preskill1999">J. Preskill, “Plug-in quantum software,” <i>Nature</i>, vol. 402, no. 6760, pp. 357–358, 1999.</span>
+
+
+
+</li></ol>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2018/04/05/quantum-crypto-part-2/">
+            Quantum Crypto Part 2
+            <small>05 Apr 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2018/03/13/quantum-crypto-part-1/">
+            Quantum Crypto Part 1
+            <small>13 Mar 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2017/12/21/xavier-initialization/">
+            Xavier Initialization
+            <small>21 Dec 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+    </div>
+
+  </body>
+</html>

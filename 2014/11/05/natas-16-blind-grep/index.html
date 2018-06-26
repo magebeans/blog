@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+<link href="http://gmpg.org/xfn/11" rel="profile">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+<!-- Enable responsiveness on mobile devices-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+<title>
+    
+    Natas 16 Blind Grep &middot; Manas George
+    
+</title>
+
+<!-- CSS -->
+<link rel="stylesheet" href="/public/css/poole.css">
+<link rel="stylesheet" href="/public/css/syntax.css">
+<link rel="stylesheet" href="/public/css/hyde.css">
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+<!-- Icons -->
+<link rel="shortcut icon" href="public/favicon.ico">
+
+<!-- RSS -->
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-111529460-1"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-111529460-1');
+    </script>
+
+</head>
+
+
+    <script type="text/javascript"
+        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [['$','$'], ['\\(','\\)']],
+            processEscapes: true
+        },
+        jax: ["input/TeX","input/MathML","input/AsciiMath","output/CommonHTML"],
+        extensions: ["tex2jax.js","mml2jax.js","asciimath2jax.js",
+                     "MathMenu.js","MathZoom.js","AssistiveMML.js"],
+        TeX: {
+            extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"],
+            equationNumbers: {
+                autoNumber: "AMS"
+            },
+            Macros: {
+                bra: ["{\\mathinner{\\langle{#1}|}}",1],
+                ket: ["{\\mathinner{|{#1}\\rangle}}",1],
+                braket: ["{\\mathinner{\\langle{#1}\\rangle}}",1],
+                Bra: ["{\\left\\langle#1\\right|}",1],
+                Ket: ["{\\left|#1\\right\\rangle}",1]
+            }
+        }
+    });
+    </script>
+
+
+
+  <body class="theme-base-08">
+
+    <div class="sidebar">
+<div class="container sidebar-sticky">
+    <div class="sidebar-about">
+        <h1>
+            <a href="">
+                <div class="profile-picture">
+                    <img src="/assets/face.png" width="200"></img>
+                </div>
+                <!-- Manas George -->
+            </a>
+        </h1>
+        <p class="lead">Hacker, Programmer, Math geek.</p>
+    </div>
+
+    <nav class="sidebar-nav">
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <a class="sidebar-nav-item" href="/resume/">Resume</a>
+        
+        
+        
+        
+        
+        <a class="sidebar-nav-item" href="/">Blog</a>
+        
+        
+        
+        
+        
+        <a class="sidebar-nav-item" href="/blog/page2/">Blog</a>
+        
+        
+        
+
+        <a class="sidebar-nav-item" href="https://www.github.com/ManasGeorge">GitHub</a>
+        <!-- <a class="sidebar-nav-item" href="http://128.61.104.149">Wiki</a> -->
+    </nav>
+</div>
+</div>
+
+
+    <div class="content container">
+      <div class="post">
+  <h1 class="post-title">Natas 16 Blind Grep</h1>
+  <span class="post-date">05 Nov 2014</span>
+  <h2 id="natas-16">Natas 16</h2>
+<p>I’ll try and explain how I solved the 16th Natas challenge in this post. You
+can find the challenge page <a href="http://natas16.natas.labs.overthewire.org">here</a>.</p>
+
+<p>Playing around with the page shows that the the page takes input, greps the
+input against a dictionary file, and returns the filtered output.</p>
+
+<p>For instance, entering “clock” returns a list of all the words in the file
+dictionary.txt that contain the substring “clock”</p>
+
+<p><img src="www.mnsgrg.com/assets/clock.png" alt="clock" /></p>
+
+<p>What if we tried something that isn’t in the dictionary? A random input
+takes you to a page with empty output. This will be important - the idea
+that you can extract information from the page based on whether or not some
+string is in the dictionary. We can use this to figure out the password
+for the next phase.</p>
+
+<p>We know that the password will be contained in  the file /etc/natas_webpass/natas17
+on the server. We simply need to somehow access this. The page takes our input
+and executes it. This means that we can enclose any arbitrary shell command
+in between $() and have the server execute it. This will help us determine the
+password, character by character.</p>
+
+<p>Consider the command <code class="highlighter-rouge">grep -E ^"1" /etc/natas_webpass/natas17</code>
+The -E option tells grep to treat the following part as a regex. The regex that
+follows returns true if the line in the natas17 file starts with the string “1”.
+Together, this command returns the password if it begins with the character 1,
+and nothing otherwise. Cycling through all possible first characters, trying
+commands like <code class="highlighter-rouge">grep -E ^"2" /etc/natas_webpass/natas17</code>, 
+<code class="highlighter-rouge">grep -E ^"3" /etc/natas_webpass/natas17</code>, etc, for every possible first
+character of the password, until we hit the right first character. When we do,
+the command will return the entire password. Now we need to figure out how to
+convert this into something we can detect.</p>
+
+<p>If we pass the string <code class="highlighter-rouge">$(grep -E ^"1" /etc/natas_webpass/natas17)test</code> to the
+input box in the page, what happens?
+The server first  executes the command within the $(), grepping the password
+file against the regex we provide, and returning nothing if it does not match.
+If the password does not begin with the character 1, nothing is returned. The
+server then grep simply the string test against the dictionary file, returning
+a list of words in the dictionary containing the substring test.
+But suppose the first character of the password was the character 1. In this
+case, the command within $() returns the password, which is prepended to the
+string test. The server then greps the string $password+test against the
+dictionary. Now, the password is usually something like WaIHEacj63wnNIBROHeqi3p9t0m5nhmh,
+which means that the server greps something like WaIHEacj63wnNIBROHeqi3p9t0m5nhmhtest
+against the dictionary, which returns a page containing nothing.</p>
+
+<p>In short, we can guess the first character of the password in this manner, checking
+to see if the result page is empty of not - it will be empty if the character we
+guess is correct, and a list of strings containing the substring test if it is
+not. By cycling through every possible number and letter, we can obtain the
+first character of the password in this way.</p>
+
+<p>Continuing, we can use a command like <code class="highlighter-rouge">$(grep -E ^"1a" /etc/natas_webpass/natas17)test</code>,
+assuming that the first character of the password is 1, in order to check the second
+character of the password. Here, we test to see if the second character is a.
+Similarly to the previous case, the server returns an empty list if our guess for
+the second character is correct, and a list of strings with substring test in
+them if it is incorrect.</p>
+
+<p>Generalizing, assuming we’ve found the first k characters of the password, represented
+by the string p, we can find the k+1’th character using by trying all possible
+values of the k+1’th character x in the command <code class="highlighter-rouge">$(grep -E ^"px" /etc/natas_webpass/natas17)test</code>,
+where p is expanded to the password prefix we know, and x is the character we’re guessing,
+and listening for the response from the server - our guess is correct if the
+server return nothing, and incorrect if it returns a list of words.</p>
+
+<p>Continuing, we can find all the characters of the password, at which point we’ve
+solved the challenge!</p>
+
+<p>You can find the code I used to automate the process described above <a href="https://www.github.com/ManasGeorge/OverTheWire.git">here</a>
+I hope you found the post helpful! Don’t hesitate to email me if you have any questions.</p>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2018/06/26/quantum-crypto-part-3/">
+            Quantum Crypto Part 3
+            <small>26 Jun 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2018/04/05/quantum-crypto-part-2/">
+            Quantum Crypto Part 2
+            <small>05 Apr 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2018/03/13/quantum-crypto-part-1/">
+            Quantum Crypto Part 1
+            <small>13 Mar 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+    </div>
+
+  </body>
+</html>
