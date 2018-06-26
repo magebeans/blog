@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+<link href="http://gmpg.org/xfn/11" rel="profile">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+<!-- Enable responsiveness on mobile devices-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+<title>
+    
+    Blog &middot; Manas George
+    
+</title>
+
+<!-- CSS -->
+<link rel="stylesheet" href="/public/css/poole.css">
+<link rel="stylesheet" href="/public/css/syntax.css">
+<link rel="stylesheet" href="/public/css/hyde.css">
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+<!-- Icons -->
+<link rel="shortcut icon" href="/public/favicon.ico">
+
+<!-- RSS -->
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-111529460-1"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-111529460-1');
+    </script>
+
+</head>
+
+
+    <script type="text/javascript"
+        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [['$','$'], ['\\(','\\)']],
+            processEscapes: true
+        },
+        jax: ["input/TeX","input/MathML","input/AsciiMath","output/CommonHTML"],
+        extensions: ["tex2jax.js","mml2jax.js","asciimath2jax.js",
+                     "MathMenu.js","MathZoom.js","AssistiveMML.js"],
+        TeX: {
+            extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"],
+            equationNumbers: {
+                autoNumber: "AMS"
+            },
+            Macros: {
+                bra: ["{\\mathinner{\\langle{#1}|}}",1],
+                ket: ["{\\mathinner{|{#1}\\rangle}}",1],
+                braket: ["{\\mathinner{\\langle{#1}\\rangle}}",1],
+                Bra: ["{\\left\\langle#1\\right|}",1],
+                Ket: ["{\\left|#1\\right\\rangle}",1]
+            }
+        }
+    });
+    </script>
+
+
+
+  <body class="theme-base-08">
+
+    <div class="sidebar">
+<div class="container sidebar-sticky">
+    <div class="sidebar-about">
+        <h1>
+            <a href="/">
+                <div class="profile-picture">
+                    <img src="/assets/face.png" width="200"></img>
+                </div>
+                <!-- Manas George -->
+            </a>
+        </h1>
+        <p class="lead">Hacker, Programmer, Math geek.</p>
+    </div>
+
+    <nav class="sidebar-nav">
+        
+
+        <a class="sidebar-nav-item" href="/">Blog</a>
+        <a class="sidebar-nav-item" href="/resume">Resume</a>
+        <a class="sidebar-nav-item" href="https://www.github.com/ManasGeorge">GitHub</a>
+    </nav>
+</div>
+</div>
+
+
+    <div class="content container">
+      <div class="page">
+  <h1 class="page-title">Blog</h1>
+  <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2018/06/26/quantum-crypto-part-3/">
+        Quantum Crypto Part 3
+      </a>
+    </h1>
+
+    <span class="post-date">26 Jun 2018</span>
+
+    <p>This is the last in the Quantum Cryptography series of posts. This post
+covers some of the experiments undertaken in the field and contemplates
+possible avenues of evolution for the technology.</p>
+
+
+
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2018/04/05/quantum-crypto-part-2/">
+        Quantum Crypto Part 2
+      </a>
+    </h1>
+
+    <span class="post-date">05 Apr 2018</span>
+
+    <p>This is the second in the Quantum Cryptography series of posts. This post
+covers some of the theoretical underpinnings of QC, including some of
+the earliest protocols and a metric for the error rate of
+a quantum channel.</p>
+
+
+
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2018/03/13/quantum-crypto-part-1/">
+        Quantum Crypto Part 1
+      </a>
+    </h1>
+
+    <span class="post-date">13 Mar 2018</span>
+
+    <p>This is the first in a series of blog posts that make up my final report
+for the Fall 2015 session of the Quantum Information and Quantum Computing
+course offered at Georgia Tech. It is presented here as an reference for
+theoretical Quantum Cryptography, as well as an increasingly
+out of date survey of experimental methods in the field. This post introduces
+the idea of Quantum Cryptography, and provides a brief overview of
+traditional cryptography.</p>
+
+
+
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2017/12/21/xavier-initialization/">
+        Xavier Initialization
+      </a>
+    </h1>
+
+    <span class="post-date">21 Dec 2017</span>
+
+    <p>This post assumes that you know enough about neural networks to follow through some math involving the backpropagation equations. For the most part, I only do basic algebraic manipulations, with a small dusting of basic statistics thrown in. If you know nothing about neural nets and have an hour or so to spare, the excellent <a href="http://neuralnetworksanddeeplearning.com/">Neural Networks and Deep Learning</a> is a good place to learn the basics, and getting as far as Chapter 2 should teach you enough to follow the math here. I try here to flesh out some of the math Glorot and Bengio skipped in their paper about initializing weights in deep neural networks, to better illuminate the intution behind why their method solves a longstanding problem facing the training of such networks.</p>
+
+
+
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2014/11/11/hilbert-curves-and-color-spaces/">
+        Hilbert Curves And Color Spaces
+      </a>
+    </h1>
+
+    <span class="post-date">11 Nov 2014</span>
+
+    <p>Fractals are incredibly cool. You know you’re in for a treat when fractional
+dimensions are a (meaningful) thing and things like shapes that enclose a
+finite area with an infinite perimeter actually exist. A lot of fractals are
+mathematically tractable, which usually means pretty pictures. This post is
+basically about pretty pictures.</p>
+
+
+
+  </div>
+  
+</div>
+
+<div class="pagination">
+  
+    <a class="pagination-item older" href="/pages/page2">Older</a>
+  
+  
+    <span class="pagination-item newer">Newer</span>
+  
+</div>
+
+</div>
+
+    </div>
+
+  </body>
+</html>
