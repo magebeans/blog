@@ -4,7 +4,7 @@
  <title>Manas George</title>
  <link href="www.mnsgrg.com/atom.xml" rel="self"/>
  <link href="www.mnsgrg.com/"/>
- <updated>2018-06-26T16:00:58-07:00</updated>
+ <updated>2018-06-26T16:43:00-07:00</updated>
  <id>www.mnsgrg.com</id>
  <author>
    <name></name>
@@ -13,13 +13,356 @@
 
  
  <entry>
-   <title>Quantum Crypto Part 3</title>
-   <link href="www.mnsgrg.com/2018/06/26/quantum-crypto-part-3/"/>
+   <title>Quantum Crypto Part 4</title>
+   <link href="www.mnsgrg.com/2018/06/26/quantum-crypto-part-4/"/>
    <updated>2018-06-26T00:00:00-07:00</updated>
-   <id>www.mnsgrg.com/2018/06/26/quantum-crypto-part-3</id>
+   <id>www.mnsgrg.com/2018/06/26/quantum-crypto-part-4</id>
    <content type="html">&lt;p&gt;This is the last in the Quantum Cryptography series of posts. This post
-covers some of the experiments undertaken in the field and contemplates
+covers the limitations of current methods and contemplates
 possible avenues of evolution for the technology.&lt;/p&gt;
+
+&lt;h1 id=&quot;limitations&quot;&gt;Limitations&lt;/h1&gt;
+
+&lt;h2 id=&quot;distance&quot;&gt;Distance&lt;/h2&gt;
+
+&lt;p&gt;Most QKD systems today rely on optical transmission of photons, either
+via telecommunications fiber or free space. Both media pose technical
+challenges in terms of attenuation and preserving polarization that must
+be overcome if global QKD is to become a reality. The primary form of
+noise in photonic transmissions is loss over distances &lt;a href=&quot;#Sangouard2011&quot;&gt;[1]&lt;/a&gt;.
+Currently, the best systems known span distances of between 100 and
+140km (missing reference). Classical communications work around the
+problem of attenuation by using repeaters, something that is difficult
+to emulate in the quantum regime due to the no-cloning theorem. A
+working quantum repeater would require matter quantum memory
+(missing reference), and might even be more difficult than the
+task of developing a universal quantum computer, due to the constraints
+involved (in particular, the quantum memories in question must satisfy
+DiVincenzo’s five criteria for universal quantum computers, as well as
+his additional (harder) criterion. &lt;a href=&quot;#DiVincenzo2000&quot;&gt;[2]&lt;/a&gt;). However, the
+forefront of research today suggests alternate formulations of quantum
+repeaters that do away with the requirement for quantum memories and may
+provide a feasible way to extend the range of QKD &lt;a href=&quot;#Azuma2015&quot;&gt;[3]&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;speed&quot;&gt;Speed&lt;/h2&gt;
+
+&lt;p&gt;Current QKD systems are limited in key transfer rate by a multitude of
+factors; the sifting process, transmission errors, detector
+inefficiencies, attenuation, additionally key bits sacrificed to privacy
+amplification, as well as other influences all combine to reduce the
+number of secure viable key bits transmitted in a QKD link. The
+transmission rate is intricately tied to the range of the system;
+increased range decreases the probability that a qubit reaches the
+destination receiver, and attenuation along the way may mean that
+detection probability is lowered even if the destination is reached. The
+rate also depends on the details of the system used; certain approaches
+offer higher rates than others. The experimental SECOQC project
+&lt;a href=&quot;#Peev2009&quot;&gt;[4]&lt;/a&gt; recommended a baseline key transmission rate of 1kbit/s over
+a 25km link, which was exceeded handily by some systems used in the
+project, with even higher rates at shorter distances, as high as 50
+kbits/s over an 80m free space link &lt;a href=&quot;#Peev2009&quot;&gt;[4]&lt;/a&gt;. In fact, rates as high
+as 1.02 Mbit/s have been seen at distances of 20km using fiber links
+&lt;a href=&quot;#Dixon2008&quot;&gt;[5]&lt;/a&gt;. In comparison to traditional communications
+infrastructure, such rates are almost laughably small, which means that
+QKD is likely to be used only for the highest security applications in
+the near future. However, advances in high-speed single photon detectors
+&lt;a href=&quot;#Yuan2007&quot;&gt;[6]&lt;/a&gt; promise, among others, promise far higher rates in years to
+come.&lt;/p&gt;
+
+&lt;h2 id=&quot;cost&quot;&gt;Cost&lt;/h2&gt;
+
+&lt;p&gt;A significant obstacle to the widespread adoption of QKD systems is the
+high cost of setting up and maintaining the equipment required for their
+use. Here, the use of telecommunications fiber, as well as the reliance
+on classical communications technologies for certain parts of the
+protocols mitigate some of the investment, as existing infrastructure
+can be reused. On the other hand, specialized equipment for the
+generation of entangled pairs, for instance, or the modulation of weak
+light pulses, require capital investments that are many orders of
+magnitude higher than traditional cryptographic systems. The emergence
+of a number of companies in the QKD space (ID Quantique, MagiQ
+Technologies, Swiss Quantum, Battelle, etc.) are a promising indicator
+that demand for such systems is healthy in environments where security
+is of paramount importance, and the prevalent mood is that mass
+production and economies of scale, coupled with technological advances
+in the manufacture of the components required (detectors, especially),
+will eventually bring the cost of QKD systems down to a manageable
+amount. Furthermore, QKD systems are often much cheaper than the
+alternative in many high security environments, where the prevalent
+method of key distribution is the use of couriers to physically exchange
+random key material, with a much lower security guarantee.&lt;/p&gt;
+
+&lt;h1 id=&quot;future&quot;&gt;Future&lt;/h1&gt;
+
+&lt;h2 id=&quot;possible-adoption-trajectories&quot;&gt;Possible adoption trajectories&lt;/h2&gt;
+
+&lt;p&gt;The types of environments best suited for the balance of security and
+cost offered by QKD networks are controlled, high-value organizations
+that require extremely strong security guarantees over long periods of
+time. QKD, combined with one-time pad encryption, offers &lt;em&gt;unconditional
+security&lt;/em&gt;, as defined by Diffie and Hellman &lt;a href=&quot;#Diffie1976&quot;&gt;[7]&lt;/a&gt;, which
+protects secrets from any form of cryptanalysis, no manner how
+computationally or mathematically advanced. Compare this with the
+vulnerability of traditional encryption schemes to expanding
+computational power over time; leaps in the amount of processing power
+possessed by novel systems reduce the complexity of a brute force attack
+on, say, 256-bit AES to the point where ciphertexts from today, stored
+by an adversary until such time in the future as computational power has
+reached the point where it is feasible to perform cryptanalysis on such
+ciphertexts, maybe decrypted in the future. Only the one-time pad offers
+any guarantee against such attacks, and only QKD has the potential to
+distribute keys for use in the one-time pad in a relatively efficient,
+scalable manner. Therefore, sensible predictions about the adoption of
+QKD must begin with environments such as government organizations,
+financial institutions, global military organizations, among others. It
+is possible that QKD technology may follow a trajectory not too
+different from that of the internet; beginning as the sole province of
+research institutions and government-funded projects, and then gradually
+expanding to encompass businesses and industry, eventually reaching a
+sort of threshold where widespread mass adoption becomes possible, and
+the dream of provably secure communication for all becomes true.&lt;/p&gt;
+
+&lt;h2 id=&quot;satellite-based-qkd&quot;&gt;Satellite-based QKD&lt;/h2&gt;
+
+&lt;p&gt;One of the most attractive proposals for a global QKD system leverages
+free space transmissions between ground and satellite systems for key
+exchange. Development in this area is well underway. A research effort
+from 2002 demonstrated secure key exchange over a free space link at
+23.4km &lt;a href=&quot;#Kurtsiefer2002&quot;&gt;[8]&lt;/a&gt;, with the attenuation results obtained
+indicating that near earth key exchange (at a range of 500-1,000km)
+should be possible in the near future. It has been almost 13 years since
+this result, and the proposal made by that paper seems achievable at
+present. A collaboration between industry partners and the Canadian
+Space agency over a mission called QEYSSat (Quantum Encryption and
+Science Satellite) is underway, proposing the use of a microsatellite
+located in low earth orbit at about 600km carrying an optical receiver
+with 40cm aperture as the main optical instrument. The group has
+conducted studies of transmission losses in such regimes, successfully
+operating a system at upto 60dB losses &lt;a href=&quot;#Meyer-Scott2011&quot;&gt;[9]&lt;/a&gt;, even in the
+face of strong turbulence, countered with careful post-processing
+&lt;a href=&quot;#Erven2012&quot;&gt;[10]&lt;/a&gt;. Ensuring the robust and reliable operation of such a
+service remains a goal for the future, paving the way for optical links
+to low earth satellites that may eventually form the basis for a global
+system of QKD. Further applications of satellite QKD could be in the
+secure distribution of keys for satellite remote access and for secure
+inter-satellite links &lt;a href=&quot;#PerdiguesArmengol2008&quot;&gt;[11]&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/quantum/satellite.png&quot; alt=&quot;&quot; /&gt;
+&lt;em&gt;&lt;a href=&quot;#Jennewein2014&quot;&gt;[12]&lt;/a&gt; An artist’s rendering of QKD via a trusted satellite node&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;the-quantum-internet&quot;&gt;The Quantum Internet &lt;a href=&quot;#Kimble2008&quot;&gt;[13]&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;One of the key results of research into quantum cryptography is the
+maturation of technologies that allow for the creation of purely quantum
+links between systems, transporting quantum states between
+geographically separated sites with high fidelity, maintaining important
+quantum properties like entanglement. Carrying out this idea to its
+logical conclusion leads to the idea of a quantum internet, whereby a
+network of computational nodes linked by quantum channels would be
+empowered to perform computational tasks beyond classical physics. For
+instance, Preskill’s notion of quantum software &lt;a href=&quot;#Preskill1999&quot;&gt;[14]&lt;/a&gt;, used to
+describe difficult-to-create quantum states that perform useful quantum
+computations, would find a distribution mechanism in such a quantum
+internet. Perhaps most dazzling is the exponential increase in state
+space that would be produced by full quantum connectivity between nodes
+of such a network; a fully quantum network of $n$ nodes each with $k$
+quantum bits would have a state space on the order of $2^{kn}$, whereas
+such a network that utilized only classical connections would have a
+state space of significantly lower dimension, on the order of $n2^k$.
+However, fully realizing such a system would require overcoming rather
+large technical difficulties in local quantum processing, quantum
+repeaters, and error-corrected quantum teleportation, as well as
+advances in quantum memory. Theoretically, the developments required
+would signal a shift in focus from concentrating on highly specialized
+components (say, systems comprising of single electrons trapped in
+crystals) to more complex dynamical quantum systems composed of many
+such building blocks.&lt;/p&gt;
+
+&lt;h1 id=&quot;bibliography&quot;&gt;Bibliography&lt;/h1&gt;
+&lt;ol class=&quot;bibliography&quot;&gt;&lt;li&gt;
+
+
+
+
+
+&lt;span id=&quot;Sangouard2011&quot;&gt;N. Sangouard, C. Simon, H. De Riedmatten, and N. Gisin, “Quantum repeaters based on atomic ensembles and linear optics,” &lt;i&gt;Rev. Mod. Phys.&lt;/i&gt;, vol. 83, no. 1, pp. 33–80, 2011.&lt;/span&gt;
+
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&quot;http://arxiv.org/abs/quant-ph/0002077&quot;&gt;
+
+
+
+
+
+
+&lt;span id=&quot;DiVincenzo2000&quot;&gt;D. P. DiVincenzo and IBM, “The Physical Implementation of Quantum Computation,” &lt;i&gt;Fortschritte der Phys.&lt;/i&gt;, vol. 48, pp. 771–783, 2000.&lt;/span&gt;
+
+
+
+&lt;/a&gt;
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&quot;http://www.nature.com/doifinder/10.1038/ncomms7787&quot;&gt;
+
+
+
+
+
+
+&lt;span id=&quot;Azuma2015&quot;&gt;K. Azuma, K. Tamaki, and H.-K. Lo, “All-photonic quantum repeaters,” &lt;i&gt;Nat. Commun.&lt;/i&gt;, vol. 6, p. 6787, 2015.&lt;/span&gt;
+
+
+
+&lt;/a&gt;
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&quot;http://iopscience.iop.org/1367-2630/11/7/075001&quot;&gt;
+
+
+
+
+
+
+&lt;span id=&quot;Peev2009&quot;&gt;M. Peev, C. Pacher, and R. Alléaume, “The SECOQC quantum key distribution network in Vienna,” &lt;i&gt;New J. Phys.&lt;/i&gt;, vol. 11, p. 075001, 2009.&lt;/span&gt;
+
+
+
+&lt;/a&gt;
+
+&lt;/li&gt;
+&lt;li&gt;
+
+
+
+
+
+&lt;span id=&quot;Dixon2008&quot;&gt;a R. Dixon, Z. L. Yuan, J. F. Dynes, a W. Sharpe, and a J. Shields, “Gigahertz decoy quantum key distribution with 1 Mbit/s secure key rate.,” &lt;i&gt;Opt. Express&lt;/i&gt;, vol. 16, no. 23, pp. 18790–18797, 2008.&lt;/span&gt;
+
+
+
+&lt;/li&gt;
+&lt;li&gt;
+
+
+
+
+
+&lt;span id=&quot;Yuan2007&quot;&gt;Z. L. Yuan, B. E. Kardynal, A. W. Sharpe, and A. J. Shields, “High speed single photon detection in the near infrared,” &lt;i&gt;Appl. Phys. Lett.&lt;/i&gt;, vol. 91, no. 4, pp. 41113–41114, 2007.&lt;/span&gt;
+
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&quot;http://ieeexplore.ieee.org/lpdocs/epic03/wrapper.htm?arnumber=1055638&quot;&gt;
+
+
+
+
+
+
+&lt;span id=&quot;Diffie1976&quot;&gt;W. Diffie and M. Hellman, “New directions in cryptography,” &lt;i&gt;IEEE Trans. Inf. Theory&lt;/i&gt;, vol. 22, no. 6, pp. 644–654, 1976.&lt;/span&gt;
+
+
+
+&lt;/a&gt;
+
+&lt;/li&gt;
+&lt;li&gt;
+
+
+
+
+
+&lt;span id=&quot;Kurtsiefer2002&quot;&gt;C. Kurtsiefer &lt;i&gt;et al.&lt;/i&gt;, “A step towards global key distribution.,” &lt;i&gt;Nature&lt;/i&gt;, vol. 419, no. 6906, p. 450, 2002.&lt;/span&gt;
+
+
+
+&lt;/li&gt;
+&lt;li&gt;
+
+
+
+
+
+&lt;span id=&quot;Meyer-Scott2011&quot;&gt;E. Meyer-Scott, Z. Yan, A. MacDonald, J. P. Bourgoin, H. Hübel, and T. Jennewein, “How to implement decoy-state quantum key distribution for a satellite uplink with 50-dB channel loss,” &lt;i&gt;Phys. Rev. A - At. Mol. Opt. Phys.&lt;/i&gt;, vol. 84, no. 6, pp. 1–9, 2011.&lt;/span&gt;
+
+
+
+&lt;/li&gt;
+&lt;li&gt;
+
+
+
+
+
+&lt;span id=&quot;Erven2012&quot;&gt;C. Erven &lt;i&gt;et al.&lt;/i&gt;, “Studying free-space transmission statistics and improving free-space quantum key distribution in the turbulent atmosphere,” &lt;i&gt;New J. Phys.&lt;/i&gt;, vol. 14, pp. 1–20, 2012.&lt;/span&gt;
+
+
+
+&lt;/li&gt;
+&lt;li&gt;
+
+
+
+
+
+&lt;span id=&quot;PerdiguesArmengol2008&quot;&gt;J. M. Perdigues Armengol &lt;i&gt;et al.&lt;/i&gt;, “Quantum communications at ESA: Towards a space experiment on the ISS,” &lt;i&gt;Acta Astronaut.&lt;/i&gt;, vol. 63, no. 1-4, pp. 165–178, 2008.&lt;/span&gt;
+
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&quot;http://dx.doi.org/10.1117/12.2041693&quot;&gt;
+
+
+
+
+
+
+&lt;span id=&quot;Jennewein2014&quot;&gt;T. Jennewein &lt;i&gt;et al.&lt;/i&gt;, “QEYSSAT: a mission proposal for a quantum receiver in space,” vol. 8997, pp. 89970A–89970A–7, 2014.&lt;/span&gt;
+
+
+
+&lt;/a&gt;
+
+&lt;/li&gt;
+&lt;li&gt;
+
+
+
+
+
+&lt;span id=&quot;Kimble2008&quot;&gt;H. J. Kimble, “The quantum internet.,” &lt;i&gt;Nature&lt;/i&gt;, vol. 453, no. 7198, pp. 1023–1030, 2008.&lt;/span&gt;
+
+
+
+&lt;/li&gt;
+&lt;li&gt;
+
+
+
+
+
+&lt;span id=&quot;Preskill1999&quot;&gt;J. Preskill, “Plug-in quantum software,” &lt;i&gt;Nature&lt;/i&gt;, vol. 402, no. 6760, pp. 357–358, 1999.&lt;/span&gt;
+
+
+
+&lt;/li&gt;&lt;/ol&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Quantum Crypto Part 3</title>
+   <link href="www.mnsgrg.com/2018/06/05/quantum-crypto-part-3/"/>
+   <updated>2018-06-05T00:00:00-07:00</updated>
+   <id>www.mnsgrg.com/2018/06/05/quantum-crypto-part-3</id>
+   <content type="html">&lt;p&gt;This is the third in the Quantum Cryptography series of posts. This post
+covers some of the experiments undertaken in the field already.&lt;/p&gt;
 
 &lt;p&gt;The practical utility of a functional system of quantum key distribution
 (QKD) is exceedingly high. It is perhaps too early to envision a future
@@ -480,164 +823,7 @@ day functions (telephony and video conferencing, for instance) in a
 secure manner, building off of the inherent security of the QKD
 paradigm.&lt;/p&gt;
 
-&lt;h1 id=&quot;limitations&quot;&gt;Limitations&lt;/h1&gt;
-
-&lt;h2 id=&quot;distance&quot;&gt;Distance&lt;/h2&gt;
-
-&lt;p&gt;Most QKD systems today rely on optical transmission of photons, either
-via telecommunications fiber or free space. Both media pose technical
-challenges in terms of attenuation and preserving polarization that must
-be overcome if global QKD is to become a reality. The primary form of
-noise in photonic transmissions is loss over distances &lt;a href=&quot;#Sangouard2011&quot;&gt;[24]&lt;/a&gt;.
-Currently, the best systems known span distances of between 100 and
-140km (missing reference). Classical communications work around the
-problem of attenuation by using repeaters, something that is difficult
-to emulate in the quantum regime due to the no-cloning theorem. A
-working quantum repeater would require matter quantum memory
-(missing reference), and might even be more difficult than the
-task of developing a universal quantum computer, due to the constraints
-involved (in particular, the quantum memories in question must satisfy
-DiVincenzo’s five criteria for universal quantum computers, as well as
-his additional (harder) criterion. &lt;a href=&quot;#DiVincenzo2000&quot;&gt;[25]&lt;/a&gt;). However, the
-forefront of research today suggests alternate formulations of quantum
-repeaters that do away with the requirement for quantum memories and may
-provide a feasible way to extend the range of QKD &lt;a href=&quot;#Azuma2015&quot;&gt;[4]&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;speed&quot;&gt;Speed&lt;/h2&gt;
-
-&lt;p&gt;Current QKD systems are limited in key transfer rate by a multitude of
-factors; the sifting process, transmission errors, detector
-inefficiencies, attenuation, additionally key bits sacrificed to privacy
-amplification, as well as other influences all combine to reduce the
-number of secure viable key bits transmitted in a QKD link. The
-transmission rate is intricately tied to the range of the system;
-increased range decreases the probability that a qubit reaches the
-destination receiver, and attenuation along the way may mean that
-detection probability is lowered even if the destination is reached. The
-rate also depends on the details of the system used; certain approaches
-offer higher rates than others. The experimental SECOQC project
-&lt;a href=&quot;#Peev2009&quot;&gt;[9]&lt;/a&gt; recommended a baseline key transmission rate of 1kbit/s over
-a 25km link, which was exceeded handily by some systems used in the
-project, with even higher rates at shorter distances, as high as 50
-kbits/s over an 80m free space link &lt;a href=&quot;#Peev2009&quot;&gt;[9]&lt;/a&gt;. In fact, rates as high
-as 1.02 Mbit/s have been seen at distances of 20km using fiber links
-&lt;a href=&quot;#Dixon2008&quot;&gt;[26]&lt;/a&gt;. In comparison to traditional communications
-infrastructure, such rates are almost laughably small, which means that
-QKD is likely to be used only for the highest security applications in
-the near future. However, advances in high-speed single photon detectors
-&lt;a href=&quot;#Yuan2007&quot;&gt;[27]&lt;/a&gt; promise, among others, promise far higher rates in years to
-come.&lt;/p&gt;
-
-&lt;h2 id=&quot;cost&quot;&gt;Cost&lt;/h2&gt;
-
-&lt;p&gt;A significant obstacle to the widespread adoption of QKD systems is the
-high cost of setting up and maintaining the equipment required for their
-use. Here, the use of telecommunications fiber, as well as the reliance
-on classical communications technologies for certain parts of the
-protocols mitigate some of the investment, as existing infrastructure
-can be reused. On the other hand, specialized equipment for the
-generation of entangled pairs, for instance, or the modulation of weak
-light pulses, require capital investments that are many orders of
-magnitude higher than traditional cryptographic systems. The emergence
-of a number of companies in the QKD space (ID Quantique, MagiQ
-Technologies, Swiss Quantum, Battelle, etc.) are a promising indicator
-that demand for such systems is healthy in environments where security
-is of paramount importance, and the prevalent mood is that mass
-production and economies of scale, coupled with technological advances
-in the manufacture of the components required (detectors, especially),
-will eventually bring the cost of QKD systems down to a manageable
-amount. Furthermore, QKD systems are often much cheaper than the
-alternative in many high security environments, where the prevalent
-method of key distribution is the use of couriers to physically exchange
-random key material, with a much lower security guarantee.&lt;/p&gt;
-
-&lt;h1 id=&quot;future&quot;&gt;Future&lt;/h1&gt;
-
-&lt;h2 id=&quot;possible-adoption-trajectories&quot;&gt;Possible adoption trajectories&lt;/h2&gt;
-
-&lt;p&gt;The types of environments best suited for the balance of security and
-cost offered by QKD networks are controlled, high-value organizations
-that require extremely strong security guarantees over long periods of
-time. QKD, combined with one-time pad encryption, offers &lt;em&gt;unconditional
-security&lt;/em&gt;, as defined by Diffie and Hellman &lt;a href=&quot;#Diffie1976&quot;&gt;[28]&lt;/a&gt;, which
-protects secrets from any form of cryptanalysis, no manner how
-computationally or mathematically advanced. Compare this with the
-vulnerability of traditional encryption schemes to expanding
-computational power over time; leaps in the amount of processing power
-possessed by novel systems reduce the complexity of a brute force attack
-on, say, 256-bit AES to the point where ciphertexts from today, stored
-by an adversary until such time in the future as computational power has
-reached the point where it is feasible to perform cryptanalysis on such
-ciphertexts, maybe decrypted in the future. Only the one-time pad offers
-any guarantee against such attacks, and only QKD has the potential to
-distribute keys for use in the one-time pad in a relatively efficient,
-scalable manner. Therefore, sensible predictions about the adoption of
-QKD must begin with environments such as government organizations,
-financial institutions, global military organizations, among others. It
-is possible that QKD technology may follow a trajectory not too
-different from that of the internet; beginning as the sole province of
-research institutions and government-funded projects, and then gradually
-expanding to encompass businesses and industry, eventually reaching a
-sort of threshold where widespread mass adoption becomes possible, and
-the dream of provably secure communication for all becomes true.&lt;/p&gt;
-
-&lt;h2 id=&quot;satellite-based-qkd&quot;&gt;Satellite-based QKD&lt;/h2&gt;
-
-&lt;p&gt;One of the most attractive proposals for a global QKD system leverages
-free space transmissions between ground and satellite systems for key
-exchange. Development in this area is well underway. A research effort
-from 2002 demonstrated secure key exchange over a free space link at
-23.4km &lt;a href=&quot;#Kurtsiefer2002&quot;&gt;[29]&lt;/a&gt;, with the attenuation results obtained
-indicating that near earth key exchange (at a range of 500-1,000km)
-should be possible in the near future. It has been almost 13 years since
-this result, and the proposal made by that paper seems achievable at
-present. A collaboration between industry partners and the Canadian
-Space agency over a mission called QEYSSat (Quantum Encryption and
-Science Satellite) is underway, proposing the use of a microsatellite
-located in low earth orbit at about 600km carrying an optical receiver
-with 40cm aperture as the main optical instrument. The group has
-conducted studies of transmission losses in such regimes, successfully
-operating a system at upto 60dB losses &lt;a href=&quot;#Meyer-Scott2011&quot;&gt;[30]&lt;/a&gt;, even in the
-face of strong turbulence, countered with careful post-processing
-&lt;a href=&quot;#Erven2012&quot;&gt;[31]&lt;/a&gt;. Ensuring the robust and reliable operation of such a
-service remains a goal for the future, paving the way for optical links
-to low earth satellites that may eventually form the basis for a global
-system of QKD. Further applications of satellite QKD could be in the
-secure distribution of keys for satellite remote access and for secure
-inter-satellite links &lt;a href=&quot;#PerdiguesArmengol2008&quot;&gt;[32]&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/quantum/satellite.png&quot; alt=&quot;&quot; /&gt;
-&lt;em&gt;&lt;a href=&quot;#Jennewein2014&quot;&gt;[33]&lt;/a&gt; An artist’s rendering of QKD via a trusted satellite node&lt;/em&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;the-quantum-internet&quot;&gt;The Quantum Internet &lt;a href=&quot;#Kimble2008&quot;&gt;[34]&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p&gt;One of the key results of research into quantum cryptography is the
-maturation of technologies that allow for the creation of purely quantum
-links between systems, transporting quantum states between
-geographically separated sites with high fidelity, maintaining important
-quantum properties like entanglement. Carrying out this idea to its
-logical conclusion leads to the idea of a quantum internet, whereby a
-network of computational nodes linked by quantum channels would be
-empowered to perform computational tasks beyond classical physics. For
-instance, Preskill’s notion of quantum software &lt;a href=&quot;#Preskill1999&quot;&gt;[35]&lt;/a&gt;, used to
-describe difficult-to-create quantum states that perform useful quantum
-computations, would find a distribution mechanism in such a quantum
-internet. Perhaps most dazzling is the exponential increase in state
-space that would be produced by full quantum connectivity between nodes
-of such a network; a fully quantum network of $n$ nodes each with $k$
-quantum bits would have a state space on the order of $2^{kn}$, whereas
-such a network that utilized only classical connections would have a
-state space of significantly lower dimension, on the order of $n2^k$.
-However, fully realizing such a system would require overcoming rather
-large technical difficulties in local quantum processing, quantum
-repeaters, and error-corrected quantum teleportation, as well as
-advances in quantum memory. Theoretically, the developments required
-would signal a shift in focus from concentrating on highly specialized
-components (say, systems comprising of single electrons trapped in
-crystals) to more complex dynamical quantum systems composed of many
-such building blocks.&lt;/p&gt;
-
-&lt;h2 id=&quot;bibiliography&quot;&gt;Bibiliography&lt;/h2&gt;
+&lt;h1 id=&quot;bibliography&quot;&gt;Bibliography&lt;/h1&gt;
 &lt;ol class=&quot;bibliography&quot;&gt;&lt;li&gt;
 
 
@@ -949,150 +1135,6 @@ such building blocks.&lt;/p&gt;
 
 
 &lt;/a&gt;
-
-&lt;/li&gt;
-&lt;li&gt;
-
-
-
-
-
-&lt;span id=&quot;Sangouard2011&quot;&gt;N. Sangouard, C. Simon, H. De Riedmatten, and N. Gisin, “Quantum repeaters based on atomic ensembles and linear optics,” &lt;i&gt;Rev. Mod. Phys.&lt;/i&gt;, vol. 83, no. 1, pp. 33–80, 2011.&lt;/span&gt;
-
-
-
-&lt;/li&gt;
-&lt;li&gt;
-&lt;a href=&quot;http://arxiv.org/abs/quant-ph/0002077&quot;&gt;
-
-
-
-
-
-
-&lt;span id=&quot;DiVincenzo2000&quot;&gt;D. P. DiVincenzo and IBM, “The Physical Implementation of Quantum Computation,” &lt;i&gt;Fortschritte der Phys.&lt;/i&gt;, vol. 48, pp. 771–783, 2000.&lt;/span&gt;
-
-
-
-&lt;/a&gt;
-
-&lt;/li&gt;
-&lt;li&gt;
-
-
-
-
-
-&lt;span id=&quot;Dixon2008&quot;&gt;a R. Dixon, Z. L. Yuan, J. F. Dynes, a W. Sharpe, and a J. Shields, “Gigahertz decoy quantum key distribution with 1 Mbit/s secure key rate.,” &lt;i&gt;Opt. Express&lt;/i&gt;, vol. 16, no. 23, pp. 18790–18797, 2008.&lt;/span&gt;
-
-
-
-&lt;/li&gt;
-&lt;li&gt;
-
-
-
-
-
-&lt;span id=&quot;Yuan2007&quot;&gt;Z. L. Yuan, B. E. Kardynal, A. W. Sharpe, and A. J. Shields, “High speed single photon detection in the near infrared,” &lt;i&gt;Appl. Phys. Lett.&lt;/i&gt;, vol. 91, no. 4, pp. 41113–41114, 2007.&lt;/span&gt;
-
-
-
-&lt;/li&gt;
-&lt;li&gt;
-&lt;a href=&quot;http://ieeexplore.ieee.org/lpdocs/epic03/wrapper.htm?arnumber=1055638&quot;&gt;
-
-
-
-
-
-
-&lt;span id=&quot;Diffie1976&quot;&gt;W. Diffie and M. Hellman, “New directions in cryptography,” &lt;i&gt;IEEE Trans. Inf. Theory&lt;/i&gt;, vol. 22, no. 6, pp. 644–654, 1976.&lt;/span&gt;
-
-
-
-&lt;/a&gt;
-
-&lt;/li&gt;
-&lt;li&gt;
-
-
-
-
-
-&lt;span id=&quot;Kurtsiefer2002&quot;&gt;C. Kurtsiefer &lt;i&gt;et al.&lt;/i&gt;, “A step towards global key distribution.,” &lt;i&gt;Nature&lt;/i&gt;, vol. 419, no. 6906, p. 450, 2002.&lt;/span&gt;
-
-
-
-&lt;/li&gt;
-&lt;li&gt;
-
-
-
-
-
-&lt;span id=&quot;Meyer-Scott2011&quot;&gt;E. Meyer-Scott, Z. Yan, A. MacDonald, J. P. Bourgoin, H. Hübel, and T. Jennewein, “How to implement decoy-state quantum key distribution for a satellite uplink with 50-dB channel loss,” &lt;i&gt;Phys. Rev. A - At. Mol. Opt. Phys.&lt;/i&gt;, vol. 84, no. 6, pp. 1–9, 2011.&lt;/span&gt;
-
-
-
-&lt;/li&gt;
-&lt;li&gt;
-
-
-
-
-
-&lt;span id=&quot;Erven2012&quot;&gt;C. Erven &lt;i&gt;et al.&lt;/i&gt;, “Studying free-space transmission statistics and improving free-space quantum key distribution in the turbulent atmosphere,” &lt;i&gt;New J. Phys.&lt;/i&gt;, vol. 14, pp. 1–20, 2012.&lt;/span&gt;
-
-
-
-&lt;/li&gt;
-&lt;li&gt;
-
-
-
-
-
-&lt;span id=&quot;PerdiguesArmengol2008&quot;&gt;J. M. Perdigues Armengol &lt;i&gt;et al.&lt;/i&gt;, “Quantum communications at ESA: Towards a space experiment on the ISS,” &lt;i&gt;Acta Astronaut.&lt;/i&gt;, vol. 63, no. 1-4, pp. 165–178, 2008.&lt;/span&gt;
-
-
-
-&lt;/li&gt;
-&lt;li&gt;
-&lt;a href=&quot;http://dx.doi.org/10.1117/12.2041693&quot;&gt;
-
-
-
-
-
-
-&lt;span id=&quot;Jennewein2014&quot;&gt;T. Jennewein &lt;i&gt;et al.&lt;/i&gt;, “QEYSSAT: a mission proposal for a quantum receiver in space,” vol. 8997, pp. 89970A–89970A–7, 2014.&lt;/span&gt;
-
-
-
-&lt;/a&gt;
-
-&lt;/li&gt;
-&lt;li&gt;
-
-
-
-
-
-&lt;span id=&quot;Kimble2008&quot;&gt;H. J. Kimble, “The quantum internet.,” &lt;i&gt;Nature&lt;/i&gt;, vol. 453, no. 7198, pp. 1023–1030, 2008.&lt;/span&gt;
-
-
-
-&lt;/li&gt;
-&lt;li&gt;
-
-
-
-
-
-&lt;span id=&quot;Preskill1999&quot;&gt;J. Preskill, “Plug-in quantum software,” &lt;i&gt;Nature&lt;/i&gt;, vol. 402, no. 6760, pp. 357–358, 1999.&lt;/span&gt;
-
-
 
 &lt;/li&gt;&lt;/ol&gt;
 </content>
@@ -1451,7 +1493,7 @@ parameters, where greater distances result in intolerably high values of
 the QBER. Gisin&lt;a href=&quot;#Gisin2002&quot;&gt;[7]&lt;/a&gt; finds the maximum range to be about 100km,
 practical maxima being closer to 50km owing to a variety of factors.&lt;/p&gt;
 
-&lt;h2 id=&quot;bibiliography&quot;&gt;Bibiliography&lt;/h2&gt;
+&lt;h1 id=&quot;bibliography&quot;&gt;Bibliography&lt;/h1&gt;
 &lt;ol class=&quot;bibliography&quot;&gt;&lt;li&gt;
 &lt;a href=&quot;https://www.cs.ucsb.edu/ chong/290N-W06/BB84.pdf&quot;&gt;
 
@@ -1831,7 +1873,7 @@ something previously thought to be a mere pipe dream and standing as an
 ultimate stronghold of encryption that will weather theoretical
 advances, whether mathematical or computational.&lt;/p&gt;
 
-&lt;h2 id=&quot;bibiliography&quot;&gt;Bibiliography&lt;/h2&gt;
+&lt;h1 id=&quot;bibliography&quot;&gt;Bibliography&lt;/h1&gt;
 &lt;ol class=&quot;bibliography&quot;&gt;&lt;li&gt;
 &lt;a href=&quot;https://people.eecs.berkeley.edu/\~christos/classics/Feynman.pdf&quot;&gt;
 
@@ -1923,7 +1965,7 @@ advances, whether mathematical or computational.&lt;/p&gt;
 
 &lt;/li&gt;&lt;/ol&gt;
 
-&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;
+&lt;h1 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h1&gt;
 
 &lt;div class=&quot;footnotes&quot;&gt;
   &lt;ol&gt;

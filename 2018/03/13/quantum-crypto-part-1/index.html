@@ -102,7 +102,16 @@ window.dataLayer = window.dataLayer || [];
       <div class="post">
   <h1 class="post-title">Quantum Crypto Part 1</h1>
   <span class="post-date">13 Mar 2018</span>
-  <p>This is the first in a series of blog posts that make up my final report
+  <ul class="section-nav">
+<li class="toc-entry toc-h1"><a href="#history">History</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#symmetric-and-asymmetric-cryptography">Symmetric and Asymmetric Cryptography</a></li>
+<li class="toc-entry toc-h2"><a href="#one-time-pad">One-Time Pad</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#bibliography">Bibliography</a></li>
+<li class="toc-entry toc-h1"><a href="#footnotes">Footnotes</a></li>
+</ul><p>This is the first in a series of blog posts that make up my final report
 for the Fall 2015 session of the Quantum Information and Quantum Computing
 course offered at Georgia Tech. It is presented here as an reference for
 theoretical Quantum Cryptography, as well as an increasingly
@@ -200,7 +209,8 @@ measure of proof of the practicality of the notions covered. In
 conclusion, we discuss some of the limitations of quantum channels and
 possible directions future work in the area could take.</p>
 
-<h1 id="history">History</h1>
+<h1 id="history">
+<a id="history" class="anchor" href="#history" aria-hidden="true"><span class="octicon octicon-link"></span></a>History</h1>
 
 <p>The story of cryptographic systems dates back to time immemorial. Humans
 have kept secrets for as long as we’ve existed, and have tried to
@@ -217,7 +227,8 @@ string that, when combined with the plaintext in a rigorous manner
 specified by an encryption algorithm, produces the ciphertext)
 throughout.</p>
 
-<h2 id="symmetric-and-asymmetric-cryptography">Symmetric and Asymmetric Cryptography</h2>
+<h2 id="symmetric-and-asymmetric-cryptography">
+<a id="symmetric-and-asymmetric-cryptography" class="anchor" href="#symmetric-and-asymmetric-cryptography" aria-hidden="true"><span class="octicon octicon-link"></span></a>Symmetric and Asymmetric Cryptography</h2>
 
 <p>At its core, the distinction between symmetric and asymmetric
 cryptography refers to the type and purpose of the keys used. Symmetric
@@ -236,7 +247,7 @@ keys, sending keys by post, or using some other protocol to exchange
 keys. This struggle to exchange keys is a microscopic reflection of the
 larger problem of secure communication that cryptography tries to solve.</p>
 
-<p><img src="/assets/quantum/symmetric.png" alt="" />
+<p><img src="/assets/quantum/symmetric.png" alt="">
 <em><a href="#MicrosoftCorporation2005a">[5]</a> The process of symmetric encryption</em></p>
 
 <p>Asymmetric cryptography (also called public-key cryptography) involves
@@ -274,7 +285,7 @@ the techniques they give rise to are computationally more complex than
 the techniques of symmetric cryptography. They are, therefore, more
 useful when the messages involved are short in length.</p>
 
-<p><img src="/assets/quantum/asymmetric.png" alt="" />
+<p><img src="/assets/quantum/asymmetric.png" alt="">
 <em><a href="#MicrosoftCorporation2005a">[5]</a> The process of asymmetric encryption</em></p>
 
 <p>This leads to a natural use of asymmetric algorithms in solving the
@@ -296,7 +307,8 @@ are absent (in particular, the problems of authenticating the
 participants and of message integrity are not considered here, although
 they are solved problems with well-known protocols).</p>
 
-<h2 id="one-time-pad">One-Time Pad</h2>
+<h2 id="one-time-pad">
+<a id="one-time-pad" class="anchor" href="#one-time-pad" aria-hidden="true"><span class="octicon octicon-link"></span></a>One-Time Pad</h2>
 
 <p>In most discussion of cryptography, the one-time pad is introduced
 before more sophisticated ciphers, simply because it is considered more
@@ -384,9 +396,11 @@ something previously thought to be a mere pipe dream and standing as an
 ultimate stronghold of encryption that will weather theoretical
 advances, whether mathematical or computational.</p>
 
-<h2 id="bibiliography">Bibiliography</h2>
-<ol class="bibliography"><li>
-<a href="https://people.eecs.berkeley.edu/\~christos/classics/Feynman.pdf">
+<h1 id="bibliography">
+<a id="bibliography" class="anchor" href="#bibliography" aria-hidden="true"><span class="octicon octicon-link"></span></a>Bibliography</h1>
+<ol class="bibliography">
+<li>
+<a href="https://people.eecs.berkeley.edu/%5C~christos/classics/Feynman.pdf">
 
 
 
@@ -474,19 +488,21 @@ advances, whether mathematical or computational.</p>
 
 </a>
 
-</li></ol>
+</li>
+</ol>
 
-<h2 id="footnotes">Footnotes</h2>
+<h1 id="footnotes">
+<a id="footnotes" class="anchor" href="#footnotes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Footnotes</h1>
 
 <div class="footnotes">
   <ol>
     <li id="fn:1">
       <p>The notation $o(1)$ suggests a quantity that tends to $0$ as the
-input size increases <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
+input size increases <a href="#fnref:1" class="reversefootnote">↩</a></p>
     </li>
     <li id="fn:2">
       <p>As reported by Vehent, J. here:
-<a href="https://jve.linuxwall.info/blog/index.php?post/TLS_Survey">https://jve.linuxwall.info/blog/index.php?post/TLS_Survey</a> <a href="#fnref:2" class="reversefootnote">&#8617;</a></p>
+<a href="https://jve.linuxwall.info/blog/index.php?post/TLS_Survey">https://jve.linuxwall.info/blog/index.php?post/TLS_Survey</a> <a href="#fnref:2" class="reversefootnote">↩</a></p>
     </li>
   </ol>
 </div>
@@ -499,9 +515,18 @@ input size increases <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
     
       <li>
         <h3>
-          <a href="/2018/06/26/quantum-crypto-part-3/">
-            Quantum Crypto Part 3
+          <a href="/2018/06/26/quantum-crypto-part-4/">
+            Quantum Crypto Part 4
             <small>26 Jun 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2018/06/05/quantum-crypto-part-3/">
+            Quantum Crypto Part 3
+            <small>05 Jun 2018</small>
           </a>
         </h3>
       </li>
@@ -511,15 +536,6 @@ input size increases <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
           <a href="/2018/04/05/quantum-crypto-part-2/">
             Quantum Crypto Part 2
             <small>05 Apr 2018</small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
-          <a href="/2017/12/21/xavier-initialization/">
-            Xavier Initialization
-            <small>21 Dec 2017</small>
           </a>
         </h3>
       </li>

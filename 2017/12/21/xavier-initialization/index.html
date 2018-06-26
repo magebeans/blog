@@ -102,33 +102,58 @@ window.dataLayer = window.dataLayer || [];
       <div class="post">
   <h1 class="post-title">Xavier Initialization</h1>
   <span class="post-date">21 Dec 2017</span>
-  <p>This post assumes that you know enough about neural networks to follow through some math involving the backpropagation equations. For the most part, I only do basic algebraic manipulations, with a small dusting of basic statistics thrown in. If you know nothing about neural nets and have an hour or so to spare, the excellent <a href="http://neuralnetworksanddeeplearning.com/">Neural Networks and Deep Learning</a> is a good place to learn the basics, and getting as far as Chapter 2 should teach you enough to follow the math here. I try here to flesh out some of the math Glorot and Bengio skipped in their paper about initializing weights in deep neural networks, to better illuminate the intution behind why their method solves a longstanding problem facing the training of such networks.</p>
+  <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#vanishing-gradients">Vanishing Gradients</a></li>
+<li class="toc-entry toc-h2"><a href="#glorot-and-bengio">Glorot and Bengio</a></li>
+<li class="toc-entry toc-h2"><a href="#notation-and-assumptions">Notation and Assumptions</a></li>
+<li class="toc-entry toc-h2"><a href="#forward-pass">Forward pass</a></li>
+<li class="toc-entry toc-h2"><a href="#backwards-pass">Backwards pass</a></li>
+<li class="toc-entry toc-h2"><a href="#conclusion">Conclusion</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#logistic-activation">Logistic Activation</a></li>
+<li class="toc-entry toc-h3"><a href="#summary-of-initialization-parameters">Summary of Initialization Parameters</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#references">References</a></li>
+</ul><p>This post assumes that you know enough about neural networks to follow through some math involving the backpropagation equations. For the most part, I only do basic algebraic manipulations, with a small dusting of basic statistics thrown in. If you know nothing about neural nets and have an hour or so to spare, the excellent <a href="http://neuralnetworksanddeeplearning.com/">Neural Networks and Deep Learning</a> is a good place to learn the basics, and getting as far as Chapter 2 should teach you enough to follow the math here. I try here to flesh out some of the math Glorot and Bengio skipped in their paper about initializing weights in deep neural networks, to better illuminate the intution behind why their method solves a longstanding problem facing the training of such networks.</p>
 
-<h2 id="vanishing-gradients">Vanishing Gradients</h2>
+<h2 id="vanishing-gradients">
+<a id="vanishing-gradients" class="anchor" href="#vanishing-gradients" aria-hidden="true"><span class="octicon octicon-link"></span></a>Vanishing Gradients</h2>
 <p>Initially, one of the challenges preventing the efficient training of very deep neural networks was the phenomenon of extreme gradients. If you look at a plot of the sigmoid activation function, a common choice in vanilla neural networks, it is clear that the derivative approaches zero at the extremes of the function; activations close to 1 or close to 0 both produce very small gradients. A neuron is said to be saturated when its activation occupies these extreme regimes. It was observed during the training of very deep networks that the last hidden layer would often quickly saturate to 0, causing the gradients to be close to 0 as well, which led to the backpropagated gradients in each preceding layer to become smaller and smaller still, until the very first hidden layers felt almost no change to their weights at all from the almost-zero gradients. This is clearly disastrous; the earlier hidden layers are supposed to be busy identifying features in the dataset that successive layers can then use to build more complex features at an even high level of abstraction. If the gradients reaching these early layers do not affect their weights, they end up learning nothing from the dataset, with predictable results on model accuracy.</p>
 
-<p><img src="/assets/sigmoid.png" alt="sigmoid" /></p>
+<p><img src="/assets/sigmoid.png" alt="sigmoid"></p>
 
 <p>In this plot of the sigmoid activation function (the blue line), and its derivative (red line), you can clearly see the regions of saturation (light red background), where forcing the function to go to zero also forces its derivative to go to zero, causing the vanishing gradients issue as you move back through the layers.</p>
 
-<h2 id="glorot-and-bengio">Glorot and Bengio</h2>
+<h2 id="glorot-and-bengio">
+<a id="glorot-and-bengio" class="anchor" href="#glorot-and-bengio" aria-hidden="true"><span class="octicon octicon-link"></span></a>Glorot and Bengio</h2>
 <p>Xavier Glorot and Yoshua Bengio examined the theoretical effects of weight initialization on the vanishing gradients problem in their 2010 paper<sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup>. The first part of their paper compares activation functions, explaining how certain peculiarities of the commonly-used sigmoid function make it highly susceptible to the problem of saturation, and showing that the hyperbolic tangent and softsign <script type="math/tex">\left( \frac{x}{1 + |x|} \right)</script> activations perform better in this respect.</p>
 
 <p>The second part of their paper considers the problem of initializing weights in a fully connected network, providing theoretical justification for sampling the initial weights from the uniform distribution of a certain variance. The motivating intuition for this is in two parts; for the forward pass, ensuring that the variance of the activations is approximately the same across all the layers of the network allows for information from each training instance to pass through the network smoothly. Similarly, considering the backward pass, relatively similar variances of the gradients allows information to flow smoothly backwards. This ensures that the error data reaches all the layers, so that they can compensate effectively, which is the whole point of training.</p>
 
-<h2 id="notation-and-assumptions">Notation and Assumptions</h2>
+<h2 id="notation-and-assumptions">
+<a id="notation-and-assumptions" class="anchor" href="#notation-and-assumptions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Notation and Assumptions</h2>
 <p>In order to formalize these notions, first we must get some notation out of the way. We have the following definitions:</p>
 
 <ul>
-  <li><script type="math/tex">a^L</script> is the activation vector for layer <script type="math/tex">L</script>, with dimensions <script type="math/tex">n_L \times 1</script>, where <script type="math/tex">n_L</script> is the number of units in layer <script type="math/tex">L</script>.</li>
-  <li><script type="math/tex">W^L</script> is the matrix of weights for layer <script type="math/tex">L</script>, with dimensions <script type="math/tex">n_L \times n_{L-1}</script>. Each element <script type="math/tex">W^L_{jk}</script> represents the weight of the connection from neuron <script type="math/tex">k</script> of the current layer to neuron <script type="math/tex">j</script> of the previous one.</li>
-  <li><script type="math/tex">b^L</script> is the bias vector for layer <script type="math/tex">L</script>, with the same dimensions as <script type="math/tex">a^L</script>.</li>
-  <li><script type="math/tex">z^L</script> is the weighted input to the activation function of layer <script type="math/tex">L</script>. This means that <script type="math/tex">z^L = W^L \times a^{L-1} + b^L</script>.</li>
-  <li><script type="math/tex">C</script> is the cost function we’re trying to optimize. Glorot and Bengio use the conditional log likelihood <script type="math/tex">-\log P(y \vert x)</script>, although the details of this won’t matter much.</li>
-  <li><script type="math/tex">\sigma</script> is the activation function, so that <script type="math/tex">a^L = \sigma (z^L)</script>, where the function is applied to each element of the vector.</li>
-  <li><script type="math/tex">n_L</script> is the number of units in layer <script type="math/tex">L</script>.</li>
-  <li><script type="math/tex">x</script> is the input vector to the network.</li>
-  <li><script type="math/tex">\delta^L = \frac{\delta C}{\delta z^L}</script> is the gradient of the cost function w.r.t. the weighted inputs of layer <script type="math/tex">L</script>, also called the error.</li>
+  <li>
+<script type="math/tex">a^L</script> is the activation vector for layer <script type="math/tex">L</script>, with dimensions <script type="math/tex">n_L \times 1</script>, where <script type="math/tex">n_L</script> is the number of units in layer <script type="math/tex">L</script>.</li>
+  <li>
+<script type="math/tex">W^L</script> is the matrix of weights for layer <script type="math/tex">L</script>, with dimensions <script type="math/tex">n_L \times n_{L-1}</script>. Each element <script type="math/tex">W^L_{jk}</script> represents the weight of the connection from neuron <script type="math/tex">k</script> of the current layer to neuron <script type="math/tex">j</script> of the previous one.</li>
+  <li>
+<script type="math/tex">b^L</script> is the bias vector for layer <script type="math/tex">L</script>, with the same dimensions as <script type="math/tex">a^L</script>.</li>
+  <li>
+<script type="math/tex">z^L</script> is the weighted input to the activation function of layer <script type="math/tex">L</script>. This means that <script type="math/tex">z^L = W^L \times a^{L-1} + b^L</script>.</li>
+  <li>
+<script type="math/tex">C</script> is the cost function we’re trying to optimize. Glorot and Bengio use the conditional log likelihood <script type="math/tex">-\log P(y \vert x)</script>, although the details of this won’t matter much.</li>
+  <li>
+<script type="math/tex">\sigma</script> is the activation function, so that <script type="math/tex">a^L = \sigma (z^L)</script>, where the function is applied to each element of the vector.</li>
+  <li>
+<script type="math/tex">n_L</script> is the number of units in layer <script type="math/tex">L</script>.</li>
+  <li>
+<script type="math/tex">x</script> is the input vector to the network.</li>
+  <li>
+<script type="math/tex">\delta^L = \frac{\delta C}{\delta z^L}</script> is the gradient of the cost function w.r.t. the weighted inputs of layer <script type="math/tex">L</script>, also called the error.</li>
 </ul>
 
 <p>The following analysis holds for a fully connected neural network with <script type="math/tex">d</script> layers, with a symmetric activation function with unit derivative at zero. The biases are initialized to zero, and the activation function is approximated by the identity <script type="math/tex">f(x) = x</script> for the initialization period.</p>
@@ -137,7 +162,8 @@ window.dataLayer = window.dataLayer || [];
 
 <!-- Insert image of a fully connected 3 layer net illustrating the notation -->
 
-<h2 id="forward-pass">Forward pass</h2>
+<h2 id="forward-pass">
+<a id="forward-pass" class="anchor" href="#forward-pass" aria-hidden="true"><span class="octicon octicon-link"></span></a>Forward pass</h2>
 
 <p>For the forward pass, we want the layers to keep the input and output variances of the activations equal, so that the activations don’t get amplified or vanish upon successive passes through the layers. Consider <script type="math/tex">z^L_j</script>, the weighted input of unit <script type="math/tex">j</script> in layer <script type="math/tex">L</script>:</p>
 
@@ -168,7 +194,8 @@ window.dataLayer = window.dataLayer || [];
 
 <script type="math/tex; mode=display">\text{Var}\left[ W^{L} \right] = \frac{1}{n_\text{in}}</script>
 
-<h2 id="backwards-pass">Backwards pass</h2>
+<h2 id="backwards-pass">
+<a id="backwards-pass" class="anchor" href="#backwards-pass" aria-hidden="true"><span class="octicon octicon-link"></span></a>Backwards pass</h2>
 <p>For the backward pass, we want the variances of the gradients to be the same across the layers, so that the gradients don’t vanish or explode prematurely. We use the backpropagation equation as our starting point:</p>
 
 <script type="math/tex; mode=display">% <![CDATA[
@@ -188,7 +215,8 @@ window.dataLayer = window.dataLayer || [];
 
 <script type="math/tex; mode=display">\text{Var}\left[ W^{L} \right] = \frac{1}{n_\text{out}}</script>
 
-<h2 id="conclusion">Conclusion</h2>
+<h2 id="conclusion">
+<a id="conclusion" class="anchor" href="#conclusion" aria-hidden="true"><span class="octicon octicon-link"></span></a>Conclusion</h2>
 
 <p>In the general case, the fan-in and fan-out of a layer may not be equal, and so as a sort of compromise, Glorot and Bengio suggest using the average of the fan-in and fan-out, proposing that</p>
 
@@ -202,7 +230,8 @@ window.dataLayer = window.dataLayer || [];
 
 <p>For activation functions like ReLU, He et al. work out the required adjustments in their paper<sup id="fnref:2"><a href="#fn:2" class="footnote">2</a></sup>. At a high level, since the ReLU function basically zeroes out an entire half of the domain, it should suffice to compensate by doubling the variance of the weights, a heuristic that matches the result of He’s more nuanced analysis, which suggests that <script type="math/tex">\text{Var}\left[ W^{L} \right] = \frac{4}{n_\text{out} + n_\text{in}}</script> works well.</p>
 
-<h3 id="logistic-activation">Logistic Activation</h3>
+<h3 id="logistic-activation">
+<a id="logistic-activation" class="anchor" href="#logistic-activation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Logistic Activation</h3>
 <p>In the forward pass derivation, we approximate the activation function as approximately equal to the identity in the initialization phase we are interested in. For the logistic activation function, the equivalent approximation works out to be <script type="math/tex">\frac{x}{4} + \frac{1}{2}</script> (since the derivative at zero is <script type="math/tex">\frac{1}{4}</script> and the value of the function at zero is <script type="math/tex">\frac{1}{2}</script>), using a truncated Taylor series expansion around 0. Plugging this in,</p>
 
 <script type="math/tex; mode=display">% <![CDATA[
@@ -221,13 +250,15 @@ window.dataLayer = window.dataLayer || [];
 
 <script type="math/tex; mode=display">\text{Var}\left[ W^{L} \right] = \frac{32}{n_\text{out} + n_\text{in}}</script>
 
-<h3 id="summary-of-initialization-parameters">Summary of Initialization Parameters</h3>
+<h3 id="summary-of-initialization-parameters">
+<a id="summary-of-initialization-parameters" class="anchor" href="#summary-of-initialization-parameters" aria-hidden="true"><span class="octicon octicon-link"></span></a>Summary of Initialization Parameters</h3>
 
 <table>
   <thead>
     <tr>
       <th style="text-align: center">Activation Function</th>
-      <th style="text-align: center">Uniform Distribution <script type="math/tex">[-a,a]</script></th>
+      <th style="text-align: center">Uniform Distribution <script type="math/tex">[-a,a]</script>
+</th>
       <th style="text-align: center">Normal distribution</th>
     </tr>
   </thead>
@@ -250,15 +281,16 @@ window.dataLayer = window.dataLayer || [];
   </tbody>
 </table>
 
-<h2 id="references">References</h2>
+<h2 id="references">
+<a id="references" class="anchor" href="#references" aria-hidden="true"><span class="octicon octicon-link"></span></a>References</h2>
 
 <div class="footnotes">
   <ol>
     <li id="fn:1">
-      <p><a href="http://proceedings.mlr.press/v9/glorot10a/glorot10a.pdf">Understanding the difficulty of training deep feedforward neural networks</a> <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
+      <p><a href="http://proceedings.mlr.press/v9/glorot10a/glorot10a.pdf">Understanding the difficulty of training deep feedforward neural networks</a> <a href="#fnref:1" class="reversefootnote">↩</a></p>
     </li>
     <li id="fn:2">
-      <p><a href="https://arxiv.org/pdf/1502.01852.pdf">Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification</a> <a href="#fnref:2" class="reversefootnote">&#8617;</a></p>
+      <p><a href="https://arxiv.org/pdf/1502.01852.pdf">Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification</a> <a href="#fnref:2" class="reversefootnote">↩</a></p>
     </li>
   </ol>
 </div>
@@ -271,9 +303,18 @@ window.dataLayer = window.dataLayer || [];
     
       <li>
         <h3>
-          <a href="/2018/06/26/quantum-crypto-part-3/">
-            Quantum Crypto Part 3
+          <a href="/2018/06/26/quantum-crypto-part-4/">
+            Quantum Crypto Part 4
             <small>26 Jun 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2018/06/05/quantum-crypto-part-3/">
+            Quantum Crypto Part 3
+            <small>05 Jun 2018</small>
           </a>
         </h3>
       </li>
@@ -283,15 +324,6 @@ window.dataLayer = window.dataLayer || [];
           <a href="/2018/04/05/quantum-crypto-part-2/">
             Quantum Crypto Part 2
             <small>05 Apr 2018</small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
-          <a href="/2018/03/13/quantum-crypto-part-1/">
-            Quantum Crypto Part 1
-            <small>13 Mar 2018</small>
           </a>
         </h3>
       </li>
