@@ -2,8 +2,6 @@
 layout: post
 ---
 
-Natas 16
---------
 I'll try and explain how I solved the 16th Natas challenge in this post. You
 can find the challenge page [here](http://natas16.natas.labs.overthewire.org).
 
