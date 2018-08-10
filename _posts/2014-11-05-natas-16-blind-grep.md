@@ -11,7 +11,7 @@ input against a dictionary file, and returns the filtered output.
 For instance, entering "clock" returns a list of all the words in the file
 dictionary.txt that contain the substring "clock"
 
-![clock]({{ site.url }}/assets/clock.png)
+![clock](/assets/clock.png)
 
 What if we tried something that isn't in the dictionary? A random input
 takes you to a page with empty output. This will be important - the idea
@@ -22,7 +22,7 @@ for the next phase.
 We know that the password will be contained in  the file /etc/natas_webpass/natas17
 on the server. We simply need to somehow access this. The page takes our input
 and executes it. This means that we can enclose any arbitrary shell command
-in between $() and have the server execute it. This will help us determine the
+in between `$()` and have the server execute it. This will help us determine the
 password, character by character.
 
 Consider the command `grep -E ^"1" /etc/natas_webpass/natas17`
@@ -38,16 +38,16 @@ convert this into something we can detect.
 
 If we pass the string `$(grep -E ^"1" /etc/natas_webpass/natas17)test` to the
 input box in the page, what happens?
-The server first  executes the command within the $(), grepping the password
+The server first  executes the command within the `$()`, grepping the password
 file against the regex we provide, and returning nothing if it does not match.
 If the password does not begin with the character 1, nothing is returned. The
 server then grep simply the string test against the dictionary file, returning
 a list of words in the dictionary containing the substring test.
 But suppose the first character of the password was the character 1. In this
-case, the command within $() returns the password, which is prepended to the
+case, the command within `$()` returns the password, which is prepended to the
 string test. The server then greps the string $password+test against the
-dictionary. Now, the password is usually something like WaIHEacj63wnNIBROHeqi3p9t0m5nhmh,
-which means that the server greps something like WaIHEacj63wnNIBROHeqi3p9t0m5nhmhtest
+dictionary. Now, the password is usually something like `WaIHEacj63wnNIBROHeqi3p9t0m5nhmh`,
+which means that the server greps something like `WaIHEacj63wnNIBROHeqi3p9t0m5nhmhtest`
 against the dictionary, which returns a page containing nothing.
 
 In short, we can guess the first character of the password in this manner, checking
