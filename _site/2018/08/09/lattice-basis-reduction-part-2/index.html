@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+<link href="http://gmpg.org/xfn/11" rel="profile">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+<!-- Enable responsiveness on mobile devices-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+<title>
+    
+    Lattice Basis Reduction Part 2 &middot; Manas George
+    
+</title>
+
+<!-- CSS -->
+<link rel="stylesheet" href="/public/css/poole.css">
+<link rel="stylesheet" href="/public/css/syntax.css">
+<link rel="stylesheet" href="/public/css/hyde.css">
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+<!-- Icons -->
+<link rel="shortcut icon" href="/public/favicon.ico">
+
+<!-- RSS -->
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-111529460-1"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-111529460-1');
+    </script>
+
+</head>
+
+
+    <script type="text/javascript"
+        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [['$','$'], ['\\(','\\)']],
+            processEscapes: true
+        },
+        jax: ["input/TeX","input/MathML","input/AsciiMath","output/CommonHTML"],
+        extensions: ["tex2jax.js","mml2jax.js","asciimath2jax.js",
+                     "MathMenu.js","MathZoom.js","AssistiveMML.js"],
+        TeX: {
+            extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"],
+            equationNumbers: {
+                autoNumber: "AMS"
+            },
+            Macros: {
+                bra: ["{\\mathinner{\\langle{#1}|}}",1],
+                ket: ["{\\mathinner{|{#1}\\rangle}}",1],
+                braket: ["{\\mathinner{\\langle{#1}\\rangle}}",1],
+                Bra: ["{\\left\\langle#1\\right|}",1],
+                Ket: ["{\\left|#1\\right\\rangle}",1]
+            }
+        }
+    });
+    </script>
+
+
+
+  <body class="theme-base-08">
+
+    <div class="sidebar">
+<div class="container sidebar-sticky">
+    <div class="sidebar-about">
+        <h1>
+            <a href="/">
+                <div class="profile-picture">
+                    <img src="/assets/face.png" width="200"></img>
+                </div>
+                <!-- Manas George -->
+            </a>
+        </h1>
+        <p class="lead"></p>
+    </div>
+
+    <nav class="sidebar-nav">
+        
+
+        <a class="sidebar-nav-item" href="/">Blog</a>
+        <a class="sidebar-nav-item" href="/resume">Resume</a>
+        <a class="sidebar-nav-item" href="https://www.github.com/ManasGeorge">GitHub</a>
+    </nav>
+</div>
+</div>
+
+
+    <div class="content container">
+      <div class="post">
+  <h1 class="post-title">Lattice Basis Reduction Part 2</h1>
+  <span class="post-date">09 Aug 2018</span>
+  <p>Now that we’ve got the meat of the algorithm out of the way, we can move on to more interesting fare; applications of the LLL algorithm in what I think are somewhat breathtaking results. First, the motivating problem we starting this whole wild goose chase with:</p>
+
+<h2 id="expressing-algebraic-numbers">Expressing algebraic numbers</h2>
+<p>We return to our motivating problem; finding a polynomial with rational coefficients such that one of its roots is a given number. Consider <script type="math/tex">r = 0.222521</script>, which is just <script type="math/tex">\cos \left( \frac{3\pi}{7} \right)</script> rounded down to a few decimal places. Given the involvement of scary trigonometry, it seems unlikely that we would be able to find a nice polynomial  such that $r$ is a root of it. However, suppose we take the lattice in <script type="math/tex">\mathbb{R}^5</script> spanned by the following vectors:</p>
+
+<script type="math/tex; mode=display">\left\{ \left[1, 0, 0, 0, 1000000r^3 \right], \left[0, 1, 0, 0, 1000000r^2 \right], \\
+\left[0, 0, 1, 0, 1000000r \right], \left[0, 0, 0, 1, 1000000 \right] \right\}</script>
+
+<p>If we could find the shortest basis vector in this lattice, it would be some integer combination of the above, of the form <script type="math/tex">\left[a, b, c, d, 1000000(ar^3 + br^2 + cr + d) \right]</script>, with relatively small coefficients <script type="math/tex">a,b,c,d</script> and <script type="math/tex">ar^3 + br^2 + cr + d</script> even smaller (close to zero). Applying LLL, the lattice reduction algorithm that the rest of this post will talk about, we find that the shortest basis vector is <script type="math/tex">[8,-4,-4,1,0]</script>, which represents the equation <script type="math/tex">8x^3 - 4x^2 - 4x + 1</script>, one of whose roots is, indeed <script type="math/tex">\cos \left( \frac{3\pi}{7} \right)</script>. Interestingly enough, the other roots of the cubic found happen to be <script type="math/tex">\cos \left( \frac{5\pi}{7} \right)</script> and <script type="math/tex">\cos \left( \frac{\pi}{7} \right)</script>. We can verify that plugging in <script type="math/tex">\cos(\frac{3\pi}{7})</script> into this polynomial does in fact, result in zero through the use of arcane trigonometric identities and some sweat-inducing algebraic manipulation, left as an exercise to the reader. It struck me as kind of magical, the first time I encountered this trick, that you could start with this truncated approximation of a weird-looking irrational number and find a nice, well-behaved polynomial that goes to zero when you plug the original (untruncated) number in.</p>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2018/08/09/lattice-basis-reduction-part-1/">
+            Lattice Basis Reduction Part 1
+            <small>09 Aug 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2018/06/26/quantum-crypto-part-4/">
+            Quantum Crypto Part 4
+            <small>26 Jun 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2018/06/05/quantum-crypto-part-3/">
+            Quantum Crypto Part 3
+            <small>05 Jun 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+    </div>
+
+  </body>
+</html>
