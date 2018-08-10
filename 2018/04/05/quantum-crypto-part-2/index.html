@@ -84,7 +84,7 @@ window.dataLayer = window.dataLayer || [];
                 <!-- Manas George -->
             </a>
         </h1>
-        <p class="lead">Hacker, Programmer, Math geek.</p>
+        <p class="lead"></p>
     </div>
 
     <nav class="sidebar-nav">
@@ -102,12 +102,22 @@ window.dataLayer = window.dataLayer || [];
       <div class="post">
   <h1 class="post-title">Quantum Crypto Part 2</h1>
   <span class="post-date">05 Apr 2018</span>
-  <p>This is the second in the Quantum Cryptography series of posts. This post
+  <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#the-bb84-protocol-1">The BB84 Protocol [1]</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#sarg04-4">SARG04 [4]</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#quantum-bit-error-rate-7">Quantum Bit Error Rate [7]</a></li>
+<li class="toc-entry toc-h1"><a href="#bibliography">Bibliography</a></li>
+</ul><p>This is the second in the Quantum Cryptography series of posts. This post
 covers some of the theoretical underpinnings of QC, including some of
 the earliest protocols and a metric for the error rate of
 a quantum channel.</p>
 
-<h2 id="the-bb84-protocol">The BB84 Protocol <a href="#Bennett1984">[1]</a></h2>
+<h2 id="the-bb84-protocol">
+<a id="the-bb84-protocol-1" class="anchor" href="#the-bb84-protocol-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>The BB84 Protocol <a href="#Bennett1984">[1]</a>
+</h2>
 
 <p>The BB84 protocol is widely accepted as the first quantum cryptography
 protocol published. Its name comes from the initials of the authors of
@@ -285,7 +295,9 @@ is this process that completes the key distribution, leaving Alice and
 Bob with a perfectly correlated key with a high probability and reducing
 the information leaked to Eve by an arbitrary amount.</p>
 
-<h3 id="sarg04">SARG04 <a href="#Scarani2002">[4]</a></h3>
+<h3 id="sarg04">
+<a id="sarg04-4" class="anchor" href="#sarg04-4" aria-hidden="true"><span class="octicon octicon-link"></span></a>SARG04 <a href="#Scarani2002">[4]</a>
+</h3>
 
 <p>The preceding discussion of the BB84 protocol has focused on the single
 photon picture. Single photon production and detection for quantum key
@@ -345,7 +357,7 @@ classical bit 1 to his sifted key. By symmetry, this leaves Bob with a
 fourth of the raw key material after sifting, compared to the $1/2$
 fraction obtained in classical BB84.</p>
 
-<p><img src="/assets/quantum/compare.png" alt="" />
+<p><img src="/assets/quantum/compare.png" alt="">
 <a href="#Jeong2014">[6]</a> A comparison of secret key rate for BB84 (red) vs. SARG04
 (blue)</p>
 
@@ -357,7 +369,9 @@ storage attack to be about $0.4$ bits per pulse at an attenuation rate
 that allows her to keep one photon out of every pulse, compared to
 complete leakage of information in the case of a storage attack on BB84.</p>
 
-<h2 id="quantum-bit-error-rate">Quantum Bit Error Rate <a href="#Gisin2002">[7]</a></h2>
+<h2 id="quantum-bit-error-rate">
+<a id="quantum-bit-error-rate-7" class="anchor" href="#quantum-bit-error-rate-7" aria-hidden="true"><span class="octicon octicon-link"></span></a>Quantum Bit Error Rate <a href="#Gisin2002">[7]</a>
+</h2>
 
 <p>A variety of environmental factors make it so that not all of the
 photons transmitted by Alice are detected correctly by Bob. In practice,
@@ -450,9 +464,11 @@ parameters, where greater distances result in intolerably high values of
 the QBER. Gisin<a href="#Gisin2002">[7]</a> finds the maximum range to be about 100km,
 practical maxima being closer to 50km owing to a variety of factors.</p>
 
-<h2 id="bibiliography">Bibiliography</h2>
-<ol class="bibliography"><li>
-<a href="https://www.cs.ucsb.edu/ chong/290N-W06/BB84.pdf">
+<h1 id="bibliography">
+<a id="bibliography" class="anchor" href="#bibliography" aria-hidden="true"><span class="octicon octicon-link"></span></a>Bibliography</h1>
+<ol class="bibliography">
+<li>
+<a href="https://www.cs.ucsb.edu/%C2%A0chong/290N-W06/BB84.pdf">
 
 
 
@@ -489,7 +505,7 @@ practical maxima being closer to 50km owing to a variety of factors.</p>
 
 </li>
 <li>
-<a href="http://arxiv.org/abs/quant-ph/0211131 http://dx.doi.org/10.1103/PhysRevLett.92.057901">
+<a href="http://arxiv.org/abs/quant-ph/0211131%20http://dx.doi.org/10.1103/PhysRevLett.92.057901">
 
 
 
@@ -539,7 +555,8 @@ practical maxima being closer to 50km owing to a variety of factors.</p>
 
 
 
-</li></ol>
+</li>
+</ol>
 
 </div>
 
@@ -549,8 +566,17 @@ practical maxima being closer to 50km owing to a variety of factors.</p>
     
       <li>
         <h3>
-          <a href="/2018/06/26/quantum-crypto-part-3/">
-            Quantum Crypto Part 3
+          <a href="/2018/08/09/lattice-basis-reduction-part-1/">
+            Lattice Basis Reduction Part 1
+            <small>09 Aug 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2018/06/26/quantum-crypto-part-4/">
+            Quantum Crypto Part 4
             <small>26 Jun 2018</small>
           </a>
         </h3>
@@ -558,18 +584,9 @@ practical maxima being closer to 50km owing to a variety of factors.</p>
     
       <li>
         <h3>
-          <a href="/2018/03/13/quantum-crypto-part-1/">
-            Quantum Crypto Part 1
-            <small>13 Mar 2018</small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
-          <a href="/2017/12/21/xavier-initialization/">
-            Xavier Initialization
-            <small>21 Dec 2017</small>
+          <a href="/2018/06/05/quantum-crypto-part-3/">
+            Quantum Crypto Part 3
+            <small>05 Jun 2018</small>
           </a>
         </h3>
       </li>
