@@ -4,7 +4,7 @@
  <title>Manas George</title>
  <link href="www.mnsgrg.com/atom.xml" rel="self"/>
  <link href="www.mnsgrg.com/"/>
- <updated>2018-08-09T22:28:14-07:00</updated>
+ <updated>2018-08-09T22:35:36-07:00</updated>
  <id>www.mnsgrg.com</id>
  <author>
    <name></name>
@@ -2382,7 +2382,7 @@ input against a dictionary file, and returns the filtered output.&lt;/p&gt;
 &lt;p&gt;For instance, entering “clock” returns a list of all the words in the file
 dictionary.txt that contain the substring “clock”&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;www.mnsgrg.com/assets/clock.png&quot; alt=&quot;clock&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/clock.png&quot; alt=&quot;clock&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;What if we tried something that isn’t in the dictionary? A random input
 takes you to a page with empty output. This will be important - the idea
@@ -2393,7 +2393,7 @@ for the next phase.&lt;/p&gt;
 &lt;p&gt;We know that the password will be contained in  the file /etc/natas_webpass/natas17
 on the server. We simply need to somehow access this. The page takes our input
 and executes it. This means that we can enclose any arbitrary shell command
-in between $() and have the server execute it. This will help us determine the
+in between &lt;code class=&quot;highlighter-rouge&quot;&gt;$()&lt;/code&gt; and have the server execute it. This will help us determine the
 password, character by character.&lt;/p&gt;
 
 &lt;p&gt;Consider the command &lt;code class=&quot;highlighter-rouge&quot;&gt;grep -E ^&quot;1&quot; /etc/natas_webpass/natas17&lt;/code&gt;
@@ -2409,13 +2409,13 @@ convert this into something we can detect.&lt;/p&gt;
 
 &lt;p&gt;If we pass the string &lt;code class=&quot;highlighter-rouge&quot;&gt;$(grep -E ^&quot;1&quot; /etc/natas_webpass/natas17)test&lt;/code&gt; to the
 input box in the page, what happens?
-The server first  executes the command within the $(), grepping the password
+The server first  executes the command within the &lt;code class=&quot;highlighter-rouge&quot;&gt;$()&lt;/code&gt;, grepping the password
 file against the regex we provide, and returning nothing if it does not match.
 If the password does not begin with the character 1, nothing is returned. The
 server then grep simply the string test against the dictionary file, returning
 a list of words in the dictionary containing the substring test.
 But suppose the first character of the password was the character 1. In this
-case, the command within $() returns the password, which is prepended to the
+case, the command within &lt;code class=&quot;highlighter-rouge&quot;&gt;$()&lt;/code&gt; returns the password, which is prepended to the
 string test. The server then greps the string $password+test against the
 dictionary. Now, the password is usually something like WaIHEacj63wnNIBROHeqi3p9t0m5nhmh,
 which means that the server greps something like WaIHEacj63wnNIBROHeqi3p9t0m5nhmhtest
